@@ -112,6 +112,7 @@ namespace HotFix_Project
             m_UIInfo = new Dictionary<string, PrefabInfo>();
             m_UIInfo.Add("LoginUI",new PrefabInfo("LoginMgr", "src/login"));
             m_UIInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login"));
+            m_UIInfo.Add("LoadingUI", new PrefabInfo("LoadingMgr", "src/Loading"));
         }
 
 
