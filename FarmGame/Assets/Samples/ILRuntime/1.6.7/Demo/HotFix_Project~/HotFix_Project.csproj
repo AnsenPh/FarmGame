@@ -353,6 +353,7 @@
     <Compile Include="scripts\Common\BaseUIMgr.cs" />
     <Compile Include="scripts\Common\BaseWindow.cs" />
     <Compile Include="scripts\Common\LocalPlayerData.cs" />
+    <Compile Include="scripts\Common\Singleton.cs" />
     <Compile Include="scripts\Common\UIMgr.cs" />
     <Compile Include="scripts\DataNotify\BaseData.cs" />
     <Compile Include="scripts\DataNotify\BaseDataNotify.cs" />
