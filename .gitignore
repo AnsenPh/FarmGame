@@ -1,9 +1,9 @@
-/FarmGame/Library
-/FarmGame/Logs
-/FarmGame/obj
-/FarmGame/Temp
-/FarmGame/Assembly-CSharp-Editor.csproj
-/FarmGame/Assembly-CSharp-firstpass.csproj
-/FarmGame/Assembly-CSharp.csproj
+/QP/Library
+/QP/Logs
+/QP/obj
+/QP/Temp
+/QP/Assembly-CSharp-Editor.csproj
+/QP/Assembly-CSharp-firstpass.csproj
+/QP/Assembly-CSharp.csproj
 /dll
-/FarmGame/.vs/FarmGame/v16/.suo
+/QP/.vs/QP/v16/.suo
