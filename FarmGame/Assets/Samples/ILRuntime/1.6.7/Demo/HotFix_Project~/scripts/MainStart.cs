@@ -13,7 +13,8 @@ namespace HotFix_Project
             try
             {
                 Debug.Log("Dll的代码开始执行");
-                UIMgr.Instance.ShowRootUI("LoginMgr", true);
+                //UIMgr.Instance.ShowRootUI("LoginMgr", true);
+                UIMgr.Instance.ShowRootUI("LoadingMgr", true);
             }
             catch (Exception e)
             {
