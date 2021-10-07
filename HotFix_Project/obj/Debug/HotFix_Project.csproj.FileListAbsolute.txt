@@ -26,3 +26,11 @@ D:/git6/FarmGame/Assets/Samples/ILRuntime/1.6.7/Demo/HotFix_Project~/obj/Debug/H
 D:/git6/FarmGame/Assets/Samples/ILRuntime/1.6.7/Demo/HotFix_Project~/obj/Debug/HotFix_Project.dll
 D:/git6/FarmGame/Assets/Samples/ILRuntime/1.6.7/Demo/HotFix_Project~/obj/Debug/HotFix_Project.pdb
 /Users/zz/myproject/FarmGame/FarmGame/Assets/Samples/ILRuntime/1.6.7/Demo/HotFix_Project~/obj/Debug/HotFix_Project.csproj.AssemblyReference.cache
+D:\Git8\HotFix_Project\obj\Debug\HotFix_Project.csproj.AssemblyReference.cache
+D:\Git8\HotFix_Project\obj\Debug\HotFix_Project.csproj.CoreCompileInputs.cache
+D:\Git8\HotFix_Project\obj\Debug\HotFix_Project.dll
+D:\Git8\HotFix_Project\obj\Debug\HotFix_Project.pdb
+D:\dll\HotFix_Project.dll
+D:\dll\HotFix_Project.pdb
+D:\Git8\dll\HotFix_Project.dll
+D:\Git8\dll\HotFix_Project.pdb
