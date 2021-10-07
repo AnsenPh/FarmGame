@@ -302,6 +302,14 @@
     <Compile Include="scripts\network\ReceiveStruct.cs" />
     <Compile Include="scripts\network\NetworkCtr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scripts\Loading\LoadingMgr.cs" />
+    <Compile Include="scripts\Loading\LoadingDataNotify.cs" />
+    <Compile Include="scripts\Loading\LoadingConst.cs" />
+    <Compile Include="scripts\Loading\LoadingNetWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scripts\Loading\" />
+    <Folder Include="scripts\Loading\content\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

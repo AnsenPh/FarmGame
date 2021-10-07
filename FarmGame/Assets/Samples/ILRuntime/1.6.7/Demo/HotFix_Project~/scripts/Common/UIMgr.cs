@@ -128,6 +128,7 @@ namespace HotFix_Project
             m_WindowUIScripts = new List<BaseWindow>();
             m_RootUIInfo = new Dictionary<string, PrefabInfo>();
             m_RootUIInfo.Add("LoginUI",new PrefabInfo("LoginMgr", "src/login"));
+            m_RootUIInfo.Add("LoadingUI", new PrefabInfo("LoadingMgr", "src/Loading"));
 
             m_WindowUIInfo = new Dictionary<string, PrefabInfo>();
             m_WindowUIInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login"));
