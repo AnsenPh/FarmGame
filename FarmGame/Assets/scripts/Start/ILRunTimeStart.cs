@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using ILRuntime.Runtime.Enviorment;
 using UnityEngine.UI;
@@ -32,7 +32,7 @@ public class ILRunTimeStart : MonoBehaviour
 #endif
 
 
-        //Ê×ÏÈÊµÀı»¯ILRuntimeµÄAppDomain£¬AppDomainÊÇÒ»¸öÓ¦ÓÃ³ÌĞòÓò£¬Ã¿¸öAppDomain¶¼ÊÇÒ»¸ö¶ÀÁ¢µÄÉ³ºĞ
+        //é¦–å…ˆå®ä¾‹åŒ–ILRuntimeçš„AppDomainï¼ŒAppDomainæ˜¯ä¸€ä¸ªåº”ç”¨ç¨‹åºåŸŸï¼Œæ¯ä¸ªAppDomainéƒ½æ˜¯ä¸€ä¸ªç‹¬ç«‹çš„æ²™ç›’
         m_Appdomain = new ILRuntime.Runtime.Enviorment.AppDomain();
         UnityWebRequest DllRequest = new UnityWebRequest(TargetPath + DllName);
         DownloadHandlerBuffer DllDownloadBuffer = new DownloadHandlerBuffer();
@@ -79,7 +79,7 @@ public class ILRunTimeStart : MonoBehaviour
         }
         catch
         {
-            Debug.LogError("¼ÓÔØÈÈ¸üDLLÊ§°Ü");
+            Debug.LogError("åŠ è½½çƒ­æ›´DLLå¤±è´¥");
         }
 
         InitializeILRuntime();
@@ -89,26 +89,26 @@ public class ILRunTimeStart : MonoBehaviour
     void InitializeILRuntime()
     {
 #if DEBUG && (UNITY_EDITOR || UNITY_ANDROID || UNITY_IPHONE)
-        //ÓÉÓÚUnityµÄProfiler½Ó¿ÚÖ»ÔÊĞíÔÚÖ÷Ïß³ÌÊ¹ÓÃ£¬ÎªÁË±ÜÃâ³öÒì³££¬ĞèÒª¸æËßILRuntimeÖ÷Ïß³ÌµÄÏß³ÌID²ÅÄÜÕıÈ·½«º¯ÊıÔËĞĞºÄÊ±±¨¸æ¸øProfiler
+        //ç”±äºUnityçš„Profileræ¥å£åªå…è®¸åœ¨ä¸»çº¿ç¨‹ä½¿ç”¨ï¼Œä¸ºäº†é¿å…å‡ºå¼‚å¸¸ï¼Œéœ€è¦å‘Šè¯‰ILRuntimeä¸»çº¿ç¨‹çš„çº¿ç¨‹IDæ‰èƒ½æ­£ç¡®å°†å‡½æ•°è¿è¡Œè€—æ—¶æŠ¥å‘Šç»™Profiler
         m_Appdomain.UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
 #endif
-        AdapterRegister.Register(m_Appdomain); //×Ô¶¯Éú³ÉµÄÊÊÅäÆ÷×¢²á
-        ManualAdapterRegister.RegisterAdaptor(m_Appdomain);//ÊÖ¶¯±àĞ´µÄÊÊÅäÆ÷×¢²á
-        ILDelegate.RegisterDelegate(m_Appdomain);//Î¯ÍĞÊÊÅäÆ÷
+        AdapterRegister.Register(m_Appdomain); //è‡ªåŠ¨ç”Ÿæˆçš„é€‚é…å™¨æ³¨å†Œ
+        ManualAdapterRegister.RegisterAdaptor(m_Appdomain);//æ‰‹åŠ¨ç¼–å†™çš„é€‚é…å™¨æ³¨å†Œ
+        ILDelegate.RegisterDelegate(m_Appdomain);//å§”æ‰˜é€‚é…å™¨
 
-        // Î¯ÍĞ×¢²á
+        // å§”æ‰˜æ³¨å†Œ
         MyDelegateRegister.Register(m_Appdomain);
 
-        // CLRÖØ¶¨Ïò×¢²á
+        // CLRé‡å®šå‘æ³¨å†Œ
         MyCLRRedirectionRegister.Register(m_Appdomain);
 
-        // Î¯ÍĞ×ª»»Æ÷×¢²á
+        // å§”æ‰˜è½¬æ¢å™¨æ³¨å†Œ
         MyDelegateConverter.Register(m_Appdomain);
 
-        // LitJson¶ÔÌØÊâÊı¾İÀàĞÍµÄÖ§³Ö£¨LVector2/LVector3/LQuaternion£©
+        // LitJsonå¯¹ç‰¹æ®Šæ•°æ®ç±»å‹çš„æ”¯æŒï¼ˆLVector2/LVector3/LQuaternionï¼‰
         MyILitJsonRegister.Register(m_Appdomain);
 
-        //Õâ¸öÊÇÖ»ÓĞÉú³ÉÁË°ó¶¨´úÂëÖ®ºó ²ÅÄÜ¹»µ÷ÓÃµÄ
+        //è¿™ä¸ªæ˜¯åªæœ‰ç”Ÿæˆäº†ç»‘å®šä»£ç ä¹‹å æ‰èƒ½å¤Ÿè°ƒç”¨çš„
         //ILRuntime.Runtime.Generated.CLRBindings.Initialize(m_Appdomain);
         m_Appdomain.DebugService.StartDebugService(56000);
     }
