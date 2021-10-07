@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,11 +28,11 @@ namespace HotFix_Project
         {
             m_GameObj.SetActive(_Show);
         }
-        //°ÑprefabÖĞµÄĞèÒª±»¿ØÖÆµÄ¸÷ÖÖUI×é¼şÓë´úÂë¹ØÁªÆğÀ´
+        //æŠŠprefabä¸­çš„éœ€è¦è¢«æ§åˆ¶çš„å„ç§UIç»„ä»¶ä¸ä»£ç å…³è”èµ·æ¥
         public abstract void InitGameObjParam();
-        //Ìí¼Ó¼àÌıÊÂ¼ş
+        //æ·»åŠ ç›‘å¬äº‹ä»¶
         public abstract void AddDataListener();
-        //ÒÆ³ı¼àÌıÊÂ¼ş
+        //ç§»é™¤ç›‘å¬äº‹ä»¶
         public abstract void RemoveDataListener();
     }
 }

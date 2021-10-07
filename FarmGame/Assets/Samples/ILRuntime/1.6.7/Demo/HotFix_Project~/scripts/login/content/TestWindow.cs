@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,12 +13,12 @@ namespace HotFix_Project
             m_CloseWindowBtn = m_GameObj.transform.Find("CloseBtn").GetComponent<BaseButton>();
             m_CloseWindowBtn.SetClickCallback(OnCloseWindow);
         }
-        //Ìí¼Ó¼àÌıÊÂ¼ş
+        //æ·»åŠ ç›‘å¬äº‹ä»¶
         public override void AddDataListener()
         {
 
         }
-        //ÒÆ³ı¼àÌıÊÂ¼ş
+        //ç§»é™¤ç›‘å¬äº‹ä»¶
         public override void RemoveDataListener()
         {
 

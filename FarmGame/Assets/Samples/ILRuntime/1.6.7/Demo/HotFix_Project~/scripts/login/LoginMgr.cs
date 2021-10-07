@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,14 +17,14 @@ namespace HotFix_Project
             m_LoginInBtn.SetClickCallback(OnLoginInBtn);
 
             ////////////////////////////////////////////////////////////////////////////
-            /////                   »Á∫ŒΩ”π‹Monoµƒ∑Ω∑®
+            /////                   Â¶Ç‰ΩïÊé•ÁÆ°MonoÁöÑÊñπÊ≥ï
             ////////////////////////////////////////////////////////////////////////////
             //ILMonoBehaviour Mono = m_GameObj.AddComponent<ILMonoBehaviour>();
             //Mono.OnUpdate = Update;
             ////////////////////////////////////////////////////////////////////////////
 
             ////////////////////////////////////////////////////////////////////////////
-            /////                   »Á∫Œ π”√–Ø≥Ã
+            /////                   Â¶Ç‰Ωï‰ΩøÁî®Êê∫Á®ã
             ////////////////////////////////////////////////////////////////////////////
             //ILRunTimeStart.GetInstance().DoCoroutine(CoroutineTest());
             ////////////////////////////////////////////////////////////////////////////
@@ -35,9 +35,9 @@ namespace HotFix_Project
 
         public IEnumerator CoroutineTest()
         {
-            Debug.Log("ø™ º–≠≥Ã,t=" + Time.time);
+            Debug.Log("ÂºÄÂßãÂçèÁ®ã,t=" + Time.time);
             yield return new WaitForSeconds(3);
-            Debug.Log("µ»¥˝¡À3√Î,t=" + Time.time);
+            Debug.Log("Á≠âÂæÖ‰∫Ü3Áßí,t=" + Time.time);
         }
 
         void Update()
