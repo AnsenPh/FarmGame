@@ -20,3 +20,10 @@ D:/UnityProject/FarmGame/dll/HotFix_Project.pdb
 /Users/zz/myproject/FarmGame/FarmGame/Assets/Samples/ILRuntime/1.6.7/Demo/HotFix_Project~/obj/Debug/HotFix_Project.csproj.CopyComplete
 /Users/zz/myproject/FarmGame/FarmGame/Assets/Samples/ILRuntime/1.6.7/Demo/HotFix_Project~/obj/Debug/HotFix_Project.dll
 /Users/zz/myproject/FarmGame/FarmGame/Assets/Samples/ILRuntime/1.6.7/Demo/HotFix_Project~/obj/Debug/HotFix_Project.pdb
+D:\git6\dll\HotFix_Project.dll
+D:\git6\dll\HotFix_Project.pdb
+D:\git6\FarmGame\Assets\Samples\ILRuntime\1.6.7\Demo\HotFix_Project~\obj\Debug\HotFix_Project.csproj.AssemblyReference.cache
+D:\git6\FarmGame\Assets\Samples\ILRuntime\1.6.7\Demo\HotFix_Project~\obj\Debug\HotFix_Project.csproj.CoreCompileInputs.cache
+D:\git6\FarmGame\Assets\Samples\ILRuntime\1.6.7\Demo\HotFix_Project~\obj\Debug\HotFix_Project.csproj.CopyComplete
+D:\git6\FarmGame\Assets\Samples\ILRuntime\1.6.7\Demo\HotFix_Project~\obj\Debug\HotFix_Project.dll
+D:\git6\FarmGame\Assets\Samples\ILRuntime\1.6.7\Demo\HotFix_Project~\obj\Debug\HotFix_Project.pdb

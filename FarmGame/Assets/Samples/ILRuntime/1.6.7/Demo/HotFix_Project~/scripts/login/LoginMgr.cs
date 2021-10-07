@@ -48,6 +48,8 @@ namespace HotFix_Project
         public override void AddDataListener()
         {
             LoginDataNotify.GetInstance().Data_TestWindowShow.AddListner(this, TestWindowShow_CB);
+            LoginDataNotify.GetInstance().Data_TestObject.AddListner(this, TestObject_CB);
+            
         }
 
         public override void RemoveDataListener()
@@ -58,11 +60,22 @@ namespace HotFix_Project
         void OnLoginInBtn(int _Data)
         {
             LoginDataNotify.GetInstance().Data_TestWindowShow.SetData(true);
+
+
+            ReceiveStruct gg = new ReceiveStruct();
+            LoginDataNotify.GetInstance().Data_TestObject.SetData(gg);
         }
 
         void TestWindowShow_CB(bool _Result)
         {
             UIMgr.GetInstance().ShowWindowUI("TestWindow", _Result);
+        }
+
+        void TestObject_CB(object _Result)
+        {
+            ReceiveStruct GG = _Result as ReceiveStruct;
+            Debug.Log("GG.m_StatusCode====" + GG.m_StatusCode);
+            //UIMgr.GetInstance().ShowWindowUI("TestWindow", _Result);
         }
     }
 }

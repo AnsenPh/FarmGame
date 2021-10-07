@@ -7,7 +7,7 @@ namespace HotFix_Project
     public class LoginDataNotify : BaseDataNotify 
     {
         public BaseData<bool> Data_TestWindowShow = new BaseData<bool>();
-
+        public BaseData<object> Data_TestObject = new BaseData<object>();
 
 
 
