@@ -1,0 +1,39 @@
+﻿using System;
+namespace HotFix_Project
+{
+    public class LoadingMgr : BaseUIMgr
+    {
+        public LoadingMgr()
+        {
+        }
+
+        public override void InitGameObjParam()
+        {
+
+            ////////////////////////////////////////////////////////////////////////////
+            /////                   如何接管Mono的方法
+            ////////////////////////////////////////////////////////////////////////////
+            //ILMonoBehaviour Mono = m_GameObj.AddComponent<ILMonoBehaviour>();
+            //Mono.OnUpdate = Update;
+            ////////////////////////////////////////////////////////////////////////////
+
+            ////////////////////////////////////////////////////////////////////////////
+            /////                   如何使用携程
+            ////////////////////////////////////////////////////////////////////////////
+            //ILRunTimeStart.GetInstance().DoCoroutine(CoroutineTest());
+            ////////////////////////////////////////////////////////////////////////////
+
+
+
+        }
+
+
+        public override void AddDataListener()
+        {
+        }
+
+        public override void RemoveDataListener()
+        {
+        }
+    }
+}

@@ -1,0 +1,31 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="scripts/Loading/LoadingConst.cs">
+    <Files>
+      <File FileName="scripts/MainStart.cs" Line="22" Column="14" />
+      <File FileName="scripts/Loading/LoadingConst.cs" Line="6" Column="14" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="HotFix_Project" expanded="True">
+            <Node name="HotFix_Project" expanded="True">
+              <Node name="Properties" expanded="True" />
+              <Node name="scripts" expanded="True">
+                <Node name="Loading" expanded="True">
+                  <Node name="LoadingConst.cs" selected="True" />
+                </Node>
+                <Node name="login" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
