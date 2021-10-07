@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,14 +17,14 @@ namespace HotFix_Project
             m_LoginInBtn.SetClickCallback(OnLoginInBtn);
 
             ////////////////////////////////////////////////////////////////////////////
-            /////                   »Á∫ŒΩ”π‹Monoµƒ∑Ω∑®
+            /////                   Â¶Ç‰ΩïÊé•ÁÆ°MonoÁöÑÊñπÊ≥ï
             ////////////////////////////////////////////////////////////////////////////
             //ILMonoBehaviour Mono = m_GameObj.AddComponent<ILMonoBehaviour>();
             //Mono.OnUpdate = Update;
             ////////////////////////////////////////////////////////////////////////////
 
             ////////////////////////////////////////////////////////////////////////////
-            /////                   »Á∫Œ π”√–Ø≥Ã
+            /////                   Â¶Ç‰Ωï‰ΩøÁî®Êê∫Á®ã
             ////////////////////////////////////////////////////////////////////////////
             //ILRunTimeStart.GetInstance().DoCoroutine(CoroutineTest());
             ////////////////////////////////////////////////////////////////////////////
@@ -35,9 +35,9 @@ namespace HotFix_Project
 
         public IEnumerator CoroutineTest()
         {
-            Debug.Log("ø™ º–≠≥Ã,t=" + Time.time);
+            Debug.Log("ÂºÄÂßãÂçèÁ®ã,t=" + Time.time);
             yield return new WaitForSeconds(3);
-            Debug.Log("µ»¥˝¡À3√Î,t=" + Time.time);
+            Debug.Log("Á≠âÂæÖ‰∫Ü3Áßí,t=" + Time.time);
         }
 
         void Update()
@@ -48,6 +48,8 @@ namespace HotFix_Project
         public override void AddDataListener()
         {
             LoginDataNotify.GetInstance().Data_TestWindowShow.AddListner(this, TestWindowShow_CB);
+            LoginDataNotify.GetInstance().Data_TestObject.AddListner(this, TestObject_CB);
+            
         }
 
         public override void RemoveDataListener()
@@ -58,11 +60,22 @@ namespace HotFix_Project
         void OnLoginInBtn(int _Data)
         {
             LoginDataNotify.GetInstance().Data_TestWindowShow.SetData(true);
+
+
+            ReceiveStruct gg = new ReceiveStruct();
+            LoginDataNotify.GetInstance().Data_TestObject.SetData(gg);
         }
 
         void TestWindowShow_CB(bool _Result)
         {
             UIMgr.GetInstance().ShowWindowUI("TestWindow", _Result);
+        }
+
+        void TestObject_CB(object _Result)
+        {
+            ReceiveStruct GG = _Result as ReceiveStruct;
+            Debug.Log("GG.m_StatusCode====" + GG.m_StatusCode);
+            //UIMgr.GetInstance().ShowWindowUI("TestWindow", _Result);
         }
     }
 }

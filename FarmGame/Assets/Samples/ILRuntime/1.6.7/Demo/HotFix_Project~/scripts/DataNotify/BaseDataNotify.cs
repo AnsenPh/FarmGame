@@ -32,6 +32,10 @@ namespace HotFix_Project
                 {
                     ((BaseData<string>)item.GetValue(this)).RemoveListenerByTarget(_Target);
                 }
+                else if (tempType == typeof(BaseData<object>))
+                {
+                    ((BaseData<object>)item.GetValue(this)).RemoveListenerByTarget(_Target);
+                }
             }
         }
 
@@ -57,6 +61,10 @@ namespace HotFix_Project
                 {
                     ((BaseData<string>)item.GetValue(this)).RemoveAllListenner();
                 }
+                else if (tempType == typeof(BaseData<object>))
+                {
+                    ((BaseData<object>)item.GetValue(this)).RemoveAllListenner();
+                }
             }
         }
 
@@ -81,6 +89,10 @@ namespace HotFix_Project
                 else if (tempType == typeof(BaseData<string>))
                 {
                     ((BaseData<string>)item.GetValue(this)).Reset();
+                }
+                else if (tempType == typeof(BaseData<object>))
+                {
+                    ((BaseData<object>)item.GetValue(this)).Reset();
                 }
             }
         }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Net.Sockets;
@@ -45,7 +45,7 @@ namespace HotFix_Project
         {
             if(m_EventDic.ContainsKey(_ActionId))
             {
-                Debug.LogWarning("_ActionId===" + _ActionId + "===ÒÑ¾­±»×¢²á¹ýÁË£¬´Ë´Î×¢²á²»»áÉúÐ§");
+                Debug.LogWarning("_ActionId===" + _ActionId + "===å·²ç»è¢«æ³¨å†Œè¿‡äº†ï¼Œæ­¤æ¬¡æ³¨å†Œä¸ä¼šç”Ÿæ•ˆ");
                 return;
             }
 
@@ -57,7 +57,7 @@ namespace HotFix_Project
         {
             if (m_EventDic.ContainsKey(_ActionId) == false)
             {
-                Debug.LogWarning("_ActionId===" + _ActionId + "===»¹Ã»ÓÐ±»×¢²á£¬ÎÞ·¨×¢Ïú");
+                Debug.LogWarning("_ActionId===" + _ActionId + "===è¿˜æ²¡æœ‰è¢«æ³¨å†Œï¼Œæ— æ³•æ³¨é”€");
                 return;
             }
             m_EventDic.Remove(_ActionId);
@@ -70,7 +70,7 @@ namespace HotFix_Project
 
 
         /////////////////////////////////////////////////////////////////////////////////
-        ///          ÒÔÏÂÎªÄÚ²¿ÊµÏÖ£¬²»»áÓÃµ½
+        ///          ä»¥ä¸‹ä¸ºå†…éƒ¨å®žçŽ°ï¼Œä¸ä¼šç”¨åˆ°
         /////////////////////////////////////////////////////////////////////////////////
 
 
@@ -101,7 +101,7 @@ namespace HotFix_Project
             int CurrentActionId = DataAfterParse.m_ActionID;
             if(m_EventDic.ContainsKey(CurrentActionId)==false)
             {
-                Debug.LogWarning("ÊÕµ½ÁËActionID===" + CurrentActionId + "===µÄÏûÏ¢£¬µ«ÊÇ²¢Ã»ÓÐÊÂÏÈ×¢²á£¬ËùÒÔÃ»ÓÐ»Øµ÷¿ÉÒÔµ÷ÓÃ");
+                Debug.LogWarning("æ”¶åˆ°äº†ActionID===" + CurrentActionId + "===çš„æ¶ˆæ¯ï¼Œä½†æ˜¯å¹¶æ²¡æœ‰äº‹å…ˆæ³¨å†Œï¼Œæ‰€ä»¥æ²¡æœ‰å›žè°ƒå¯ä»¥è°ƒç”¨");
                 return;
             }
 
@@ -129,7 +129,7 @@ namespace HotFix_Project
         {
             if(_Data == null || _Data.Length == 0)
             {
-                Debug.LogError("³ö´íÀ²£¬ÔõÃ´¿ÉÄÜµÈÓÚ0£¬¿ìµãÅÅ²é");
+                Debug.LogError("å‡ºé”™å•¦ï¼Œæ€Žä¹ˆå¯èƒ½ç­‰äºŽ0ï¼Œå¿«ç‚¹æŽ’æŸ¥");
                 return null;
             }
 
@@ -139,7 +139,7 @@ namespace HotFix_Project
 
             if(DataTotalLength != _Data.Length)
             {
-                Debug.LogError("³ö´íÀ²£¬ÔõÃ´¿ÉÄÜ²»µÈÓÚ£¬¿ìµãÅÅ²é");
+                Debug.LogError("å‡ºé”™å•¦ï¼Œæ€Žä¹ˆå¯èƒ½ä¸ç­‰äºŽï¼Œå¿«ç‚¹æŽ’æŸ¥");
                 return null;
             }
 
@@ -183,7 +183,7 @@ namespace HotFix_Project
                 int BodyHeadLength = sizeof(int);
                 if(CurrentBodyPos + BodyHeadLength > BodyBytes.Length)
                 {
-                    Debug.LogError("³ö´íÀ²£¬¿ìµãÅÅ²é");
+                    Debug.LogError("å‡ºé”™å•¦ï¼Œå¿«ç‚¹æŽ’æŸ¥");
                     return null;
                 }
 

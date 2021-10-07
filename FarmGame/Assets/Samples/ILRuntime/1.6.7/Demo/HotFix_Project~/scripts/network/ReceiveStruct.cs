@@ -7,6 +7,10 @@ namespace HotFix_Project
 {
     public class ReceiveStruct
     {
+        public ReceiveStruct()
+        {
+            m_StatusCode = 1;
+        }
         public ReceiveStruct(int _Status , int _MsgId , string _Description , int _ActionId , string _Time , ByteString _MsgBody)
         {
             m_StatusCode = _Status;

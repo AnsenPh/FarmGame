@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -30,7 +30,7 @@ namespace HotFix_Project
                 BaseUIMgr ClassObj = Activator.CreateInstance(ClassType) as BaseUIMgr;
                 if (ClassObj == null)
                 {
-                    Debug.LogError(PrefabName + "Õâ¸öÔ¤ÖÆÌå¶ÔÓ¦µÄÀàÃûÎŞ·¨Éú³É£¬ÀàÃû====" + _ClassName);
+                    Debug.LogError(PrefabName + "è¿™ä¸ªé¢„åˆ¶ä½“å¯¹åº”çš„ç±»åæ— æ³•ç”Ÿæˆï¼Œç±»å====" + _ClassName);
                 }
                 else
                 {
@@ -58,7 +58,7 @@ namespace HotFix_Project
                 BaseWindow ClassObj = Activator.CreateInstance(ClassType) as BaseWindow;
                 if (ClassObj == null)
                 {
-                    Debug.LogError(PrefabName + "Õâ¸ö´°¿ÚÔ¤ÖÆÌå¶ÔÓ¦µÄÀàÃûÎŞ·¨Éú³É£¬ÀàÃû====" + _ClassName);
+                    Debug.LogError(PrefabName + "è¿™ä¸ªçª—å£é¢„åˆ¶ä½“å¯¹åº”çš„ç±»åæ— æ³•ç”Ÿæˆï¼Œç±»å====" + _ClassName);
                 }
                 else
                 {
@@ -76,22 +76,22 @@ namespace HotFix_Project
 
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-        ///ÒÔÏÂÊÇ±¾ÀàµÄÄÚ²¿ÊµÏÖ Íâ²¿²»»áĞèÒªµ÷ÓÃµÄ
+        ///ä»¥ä¸‹æ˜¯æœ¬ç±»çš„å†…éƒ¨å®ç° å¤–éƒ¨ä¸ä¼šéœ€è¦è°ƒç”¨çš„
         ///////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////
         private static UIMgr Instance = null;
-        //ËùÓĞUIµÄ¸ù½Úµã
+        //æ‰€æœ‰UIçš„æ ¹èŠ‚ç‚¹
         GameObject m_CanvasObj = null;
-        //Ö÷UIµÄ¸ù½Úµã
+        //ä¸»UIçš„æ ¹èŠ‚ç‚¹
         GameObject m_RootUIObj = null;
-        //´Î¼¶UIµÄ¸ù½Úµã
+        //æ¬¡çº§UIçš„æ ¹èŠ‚ç‚¹
         GameObject m_WindowUIObj = null;
 
-        //´æ·ÅËùÓĞÖ÷UIµÄlist¡£ Ê²Ã´ÊÇÖ÷UI£¿Ïà»¥Ö®¼ä²»¿ÉÄÜÍ¬Ê±ÏÔÊ¾µÄ´óUI£¬ÀıÈçµÇÂ¼UIºÍ´óÌüUI¾ÍÊÇÖ÷UI£¬
-        //ÕâÁ½¸öUIÖĞ´ò¿ªµÄ¸÷ÖÖµ¯´°¾Í²»ÊÇÖ÷UI
+        //å­˜æ”¾æ‰€æœ‰ä¸»UIçš„listã€‚ ä»€ä¹ˆæ˜¯ä¸»UIï¼Ÿç›¸äº’ä¹‹é—´ä¸å¯èƒ½åŒæ—¶æ˜¾ç¤ºçš„å¤§UIï¼Œä¾‹å¦‚ç™»å½•UIå’Œå¤§å…UIå°±æ˜¯ä¸»UIï¼Œ
+        //è¿™ä¸¤ä¸ªUIä¸­æ‰“å¼€çš„å„ç§å¼¹çª—å°±ä¸æ˜¯ä¸»UI
         List<BaseUIMgr> m_RootUIScripts;
-        //´æ·ÅËùÓĞ´Î¼¶UIµÄLIST
-        //Ö÷UIÖĞ±»´ò¿ªµÄ¸÷ÖÖ´Î¼¶µ¯´° ¾ÍÊÇ´Î¼¶UI
+        //å­˜æ”¾æ‰€æœ‰æ¬¡çº§UIçš„LIST
+        //ä¸»UIä¸­è¢«æ‰“å¼€çš„å„ç§æ¬¡çº§å¼¹çª— å°±æ˜¯æ¬¡çº§UI
         List<BaseWindow> m_WindowUIScripts;
         
         
@@ -105,9 +105,9 @@ namespace HotFix_Project
             public string m_ClassName;
             public string m_Path;
         }
-        //µÚÒ»¸ö²ÎÊıÊÇ¶ÔÓ¦UIµÄRoot Prefab£¬µÚ¶ş¸ö²ÎÊıÊÇ¿ØÖÆÕâ¸öprefabµÄ½Å±¾Ãû×ÖºÍÕâ¸öprefabµÄÂ·¾¶
-        Dictionary<string, PrefabInfo> m_RootUIInfo; //ÓÃÓÚÖ÷UI
-        Dictionary<string, PrefabInfo> m_WindowUIInfo; //ÓÃÓÚµ¯´°
+        //ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯å¯¹åº”UIçš„Root Prefabï¼Œç¬¬äºŒä¸ªå‚æ•°æ˜¯æ§åˆ¶è¿™ä¸ªprefabçš„è„šæœ¬åå­—å’Œè¿™ä¸ªprefabçš„è·¯å¾„
+        Dictionary<string, PrefabInfo> m_RootUIInfo; //ç”¨äºä¸»UI
+        Dictionary<string, PrefabInfo> m_WindowUIInfo; //ç”¨äºå¼¹çª—
 
         private UIMgr()
         {
@@ -175,7 +175,7 @@ namespace HotFix_Project
                 }
             }
 
-            Debug.LogError("Ã»ÓĞÕÒµ½µ±Ç°Ãû×ÖµÄÀà === " + _ClassName);
+            Debug.LogError("æ²¡æœ‰æ‰¾åˆ°å½“å‰åå­—çš„ç±» === " + _ClassName);
             return new KeyValuePair<string, PrefabInfo>();
         }
     }

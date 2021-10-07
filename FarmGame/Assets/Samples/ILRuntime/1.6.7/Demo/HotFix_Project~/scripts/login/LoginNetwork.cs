@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +38,7 @@ namespace HotFix_Project
 
 
         /// <summary>
-        /// ÏûÏ¢»Øµ÷
+        /// æ¶ˆæ¯å›è°ƒ
         /// </summary>
 
         void OnLoginMsg(ReceiveStruct _Struct)
@@ -47,11 +47,11 @@ namespace HotFix_Project
         }
 
         /// <summary>
-        /// ÏûÏ¢·¢ËÍ
+        /// æ¶ˆæ¯å‘é€
         /// </summary>
         public void SendLoginMsg(string _Account , string Password)
         {
-            //NetworkCtr.GetInstance().SendMsg((int)MsgID.LoginMsg ,  "ÕâÀïÌîÈëprotobuffµÄ½á¹¹Ìå" );
+            //NetworkCtr.GetInstance().SendMsg((int)MsgID.LoginMsg ,  "è¿™é‡Œå¡«å…¥protobuffçš„ç»“æ„ä½“" );
         }
     }
 }
