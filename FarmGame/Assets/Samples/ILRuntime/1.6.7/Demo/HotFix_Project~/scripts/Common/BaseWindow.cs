@@ -8,10 +8,6 @@ namespace HotFix_Project
     {
         public GameObject m_WindowRootObj;
         bool m_IsAnimating = false;
-        public BaseWindow()
-        {
-
-        }
 
         public override void SetGameObj(GameObject _Prefab, Transform _Parent)
         {
@@ -91,6 +87,7 @@ namespace HotFix_Project
             m_IsAnimating = false;
             m_WindowRootObj.SetActive(false);
         }
+
     }
 
 }

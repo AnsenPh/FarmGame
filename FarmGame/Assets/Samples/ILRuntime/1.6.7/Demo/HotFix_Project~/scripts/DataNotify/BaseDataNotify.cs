@@ -7,9 +7,21 @@ using System;
 
 namespace HotFix_Project
 {
-    public abstract class BaseDataNotify
+    public abstract class BaseDataNotify<T> where T : new()
     {
+        static T instance;
 
+        public static T Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new T();
+                }
+                return instance;
+            }
+        }
         public void RemoveAllListenerByTarget(object _Target)
         {
             FieldInfo[] array = GetType().GetFields();

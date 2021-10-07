@@ -11,16 +11,9 @@ using System.IO;
 using ICSharpCode.SharpZipLib.GZip;
 namespace HotFix_Project
 {
-    public class NetworkCtr
+    public class NetworkCtr: Singleton<NetworkCtr>
     {
-        public static NetworkCtr GetInstance()
-        {
-            if (Instance == null)
-            {
-                Instance = new NetworkCtr();
-            }
-            return Instance;
-        }
+
         public void InitSocket(string _Ip, int _Port, Action _ConnectSuccess, Action _ConnectFailed, Action _SocketClosed)
         {
             SetSocketCallback(_ConnectSuccess, _ConnectFailed, _SocketClosed);
@@ -75,13 +68,12 @@ namespace HotFix_Project
 
 
         string m_EncodeKey = "yiqu@2018";
-        NetworkCtr()
+        public NetworkCtr()
         {
             m_NativeSocket = new NativeSocket();
             m_NativeSocket.SetRevieveCallback(OnMsg);
         }
 
-        static NetworkCtr Instance = null;
 
         NativeSocket m_NativeSocket = null;
         int m_SendCounter = 1;
@@ -200,9 +192,9 @@ namespace HotFix_Project
 
         void ResetData()
         {
-            string Session = LocalPlayerData.GetInstance().Data_Session.Data;
-            int UserID = LocalPlayerData.GetInstance().Data_UserID.Data;
-            string Token = LocalPlayerData.GetInstance().Data_Token.Data;
+            string Session = LocalPlayerData.Instance.Data_Session.Data;
+            int UserID = LocalPlayerData.Instance.Data_UserID.Data;
+            string Token = LocalPlayerData.Instance.Data_Token.Data;
             m_PostData = "";
             m_UserData = string.Format("MsgId={0}&Sid={1}&Uid={2}&St={3}&Token={4}", m_SendCounter, Session, UserID, "", Token);
             m_SendCounter++;

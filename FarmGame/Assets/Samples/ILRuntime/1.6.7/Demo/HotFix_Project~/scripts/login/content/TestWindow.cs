@@ -27,7 +27,7 @@ namespace HotFix_Project
         public void OnCloseWindow(int _Data)
         {
             Debug.Log("OnCloseWindow"); ;
-            LoginDataNotify.GetInstance().Data_TestWindowShow.SetData(false);
+            LoginDataNotify.Instance.Data_TestWindowShow.SetData(false);
         }
     }
 
