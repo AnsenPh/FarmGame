@@ -2,4 +2,7 @@
 /FarmGame/Logs
 /FarmGame/obj
 /FarmGame/Temp
+/FarmGame/Assembly-CSharp-Editor.csproj
+/FarmGame/Assembly-CSharp-firstpass.csproj
+/FarmGame/Assembly-CSharp.csproj
 /dll
