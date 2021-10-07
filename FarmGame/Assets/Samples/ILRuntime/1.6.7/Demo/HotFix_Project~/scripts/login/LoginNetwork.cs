@@ -4,22 +4,8 @@ using UnityEngine;
 
 namespace HotFix_Project
 {
-    public class LoginNetwork : BaseNetwork
+    public class LoginNetwork : BaseNetwork<LoginNetwork>
     {
-        public static LoginNetwork GetInstance()
-        {
-            if(Instance == null)
-            {
-                Instance = new LoginNetwork();
-            }
-            return Instance;
-        }
-        LoginNetwork()
-        {
-
-        }
-        static LoginNetwork Instance = null;
-
         enum MsgID
         {
             LoginMsg = 1001,
@@ -28,12 +14,12 @@ namespace HotFix_Project
 
         public override void RegisterMsgEvent()
         {
-            NetworkCtr.GetInstance().RegisterMsg((int)MsgID.LoginMsg, OnLoginMsg);
+            NetworkCtr.Instance.RegisterMsg((int)MsgID.LoginMsg, OnLoginMsg);
         }
 
         public override void UnRegisterMsgEvent()
         {
-            NetworkCtr.GetInstance().UnRegisterMsg((int)MsgID.LoginMsg);
+            NetworkCtr.Instance.UnRegisterMsg((int)MsgID.LoginMsg);
         }
 
 

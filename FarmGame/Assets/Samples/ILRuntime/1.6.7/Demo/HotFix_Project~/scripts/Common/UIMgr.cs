@@ -8,13 +8,18 @@ namespace HotFix_Project
 {
     public class UIMgr
     {
-        public static UIMgr GetInstance()
+        static UIMgr instance;
+
+        public static UIMgr Instance
         {
-            if (Instance == null)
+            get
             {
-                Instance = new UIMgr();
+                if (instance == null)
+                {
+                    instance = new UIMgr();
+                }
+                return instance;
             }
-            return Instance;
         }
 
         public void ShowRootUI(string _ClassName , bool _Show)
@@ -79,7 +84,6 @@ namespace HotFix_Project
         ///以下是本类的内部实现 外部不会需要调用的
         ///////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////
-        private static UIMgr Instance = null;
         //所有UI的根节点
         GameObject m_CanvasObj = null;
         //主UI的根节点

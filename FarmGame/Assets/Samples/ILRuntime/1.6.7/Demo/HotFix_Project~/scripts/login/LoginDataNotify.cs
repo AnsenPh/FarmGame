@@ -4,42 +4,10 @@ using UnityEngine;
 
 namespace HotFix_Project
 {
-    public class LoginDataNotify : BaseDataNotify 
+    public class LoginDataNotify : BaseDataNotify<LoginDataNotify>
     {
         public BaseData<bool> Data_TestWindowShow = new BaseData<bool>();
-        public BaseData<object> Data_TestObject = new BaseData<object>();
 
-
-
-
-
-
-        private LoginDataNotify()
-        {
-
-        }
-
-        private static LoginDataNotify Instance = null;
-        public static LoginDataNotify GetInstance()
-        {
-            if (LoginDataNotify.Instance == null)
-            {
-                LoginDataNotify.Instance = new LoginDataNotify();
-            }
-
-            return LoginDataNotify.Instance;
-        }
-
-        public static void ReleaseInstance()
-        {
-            LoginDataNotify.Instance = null;
-        }
-
-
-        public void Init()
-        {
-
-        }
 
 
     }

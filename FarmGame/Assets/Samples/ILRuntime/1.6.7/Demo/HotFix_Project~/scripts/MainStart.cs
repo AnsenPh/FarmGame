@@ -13,7 +13,7 @@ namespace HotFix_Project
             try
             {
                 Debug.Log("Dll的代码开始执行");
-                UIMgr.GetInstance().ShowRootUI("LoginMgr", true);
+                UIMgr.Instance.ShowRootUI("LoginMgr", true);
             }
             catch (Exception e)
             {

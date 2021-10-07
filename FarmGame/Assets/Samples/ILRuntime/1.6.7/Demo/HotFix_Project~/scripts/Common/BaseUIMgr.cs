@@ -8,11 +8,6 @@ namespace HotFix_Project
     {
         public GameObject m_GameObj;
 
-        public BaseUIMgr()
-        {
-
-        }
-
         public virtual void SetGameObj(GameObject _Prefab , Transform _Parent)
         {
             m_GameObj = GameObject.Instantiate(_Prefab);
