@@ -35,7 +35,9 @@ namespace HotFix_Project
         {
             for(int i = 0; i < m_SubUIScripts.Count; i++)
             {
+                m_SubUIScripts[i].RemoveDataListener();
                 m_SubUIScripts[i].Delete();
+                m_SubUIScripts[i] = null;
             }
             m_SubUIScripts.Clear();
 

@@ -24,9 +24,9 @@ namespace HotFix_Project
 
         public BaseUIMgr ShowUI(string _ClassName , bool _Show , Transform _Parent)
         {
-            KeyValuePair<string, PrefabInfo> PrefabInfo = GetPrefabInfo(_ClassName);
-            string PrefabName = PrefabInfo.Key;
-            string Path = PrefabInfo.Value.m_Path;
+            PrefabInfo PrefabInfo = m_UIInfo[_ClassName];
+            string PrefabName = PrefabInfo.m_PrefabName;
+            string Path = PrefabInfo.m_Path;
             GameObject Prefab = ABManager.LoadAssetFromAB_GameObject(Path, PrefabName);
             System.Type ClassType = System.Type.GetType("HotFix_Project." + _ClassName);
             BaseUIMgr ClassObj = Activator.CreateInstance(ClassType) as BaseUIMgr;
@@ -42,14 +42,24 @@ namespace HotFix_Project
             }
         }
 
-        public BaseUIMgr ShowRootUI(string _ClassName, bool _Show)
+        public BaseUIMgr ShowRootUI(string _ClassName, bool _Show, bool _HidePrevious = true)
         {
             BaseUIMgr TempScripts = ShowUI(_ClassName, _Show, m_RootUIObj.transform);
             m_RootUI.Add(TempScripts);
+
+            if(_HidePrevious)
+            {
+                for (int i = 0; i < m_RootUI.Count - 1; i++)
+                {
+                    m_RootUI[i].Show(false);
+                }
+            }
+
+
             return TempScripts;
         }
 
-        public BaseUIMgr ShowWindowUI(string _ClassName, bool _Show)
+        public BaseUIMgr ShowWindowUI(string _ClassName, bool _Show )
         {
             BaseUIMgr TempScripts = ShowUI(_ClassName, _Show, m_WindowUIObj.transform);
             m_WindowUI.Add(TempScripts);
@@ -60,6 +70,47 @@ namespace HotFix_Project
         {
             BaseUIMgr TempScripts = ShowUI(_ClassName, _Show, _Parent);
             return TempScripts;
+        }
+
+        public void HideAllRootUI(bool Destroy = true)
+        {
+            if(Destroy)
+            {
+                while (m_RootUI.Count > 1)
+                {
+                    m_RootUI[0].Delete();
+                    m_RootUI[0] = null;
+                    m_RootUI.RemoveAt(0);
+                }
+            }
+            else
+            {
+                for(int i = 0; i < m_RootUI.Count - 1; i++)
+                {
+                    m_RootUI[i].Show(false);
+                }
+            }
+
+        }
+
+        public void HideAllWindow(bool Destroy = true)
+        {
+            if (Destroy)
+            {
+                while (m_WindowUI.Count > 1)
+                {
+                    m_WindowUI[0].Delete();
+                    m_WindowUI[0] = null;
+                    m_WindowUI.RemoveAt(0);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < m_WindowUI.Count - 1; i++)
+                {
+                    m_WindowUI[i].Show(false);
+                }
+            }
         }
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -80,15 +131,15 @@ namespace HotFix_Project
 
         struct PrefabInfo
         {
-            public PrefabInfo(string _ClassName , string _Path)
+            public PrefabInfo(string PrefabName , string _Path)
             {
-                m_ClassName = _ClassName;
+                m_PrefabName = PrefabName;
                 m_Path = _Path;
             }
-            public string m_ClassName;
+            public string m_PrefabName;
             public string m_Path;
         }
-        //第一个参数是对应UI的Prefab，第二个参数是控制这个prefab的脚本名字和这个prefab的路径
+        //第一个参数是对应UI的脚本名称，第二个参数是控制这个prefab的名字和这个prefab的路径
         Dictionary<string, PrefabInfo> m_UIInfo; //用于主UI
 
 
@@ -110,29 +161,11 @@ namespace HotFix_Project
             m_WindowUI = new List<BaseUIMgr>();
             m_RootUI = new List<BaseUIMgr>();
             m_UIInfo = new Dictionary<string, PrefabInfo>();
-            m_UIInfo.Add("LoginUI",new PrefabInfo("LoginMgr", "src/login"));
+            m_UIInfo.Add("LoginMgr", new PrefabInfo("LoginUI", "src/login"));
             m_UIInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login"));
-            m_UIInfo.Add("LoadingUI", new PrefabInfo("LoadingMgr", "src/Loading"));
+            m_UIInfo.Add("LoadingMgr", new PrefabInfo("LoadingUI", "src/Loading"));
         }
 
-
-
-        KeyValuePair<string, PrefabInfo> GetPrefabInfo( string _ClassName)
-        {
-            for(int i = 0; i < m_UIInfo.Count; i++)
-            {
-                KeyValuePair<string, PrefabInfo> element = m_UIInfo.ElementAt(i);
-                string Key = element.Key;
-                PrefabInfo Value = element.Value;
-                if(Value.m_ClassName == _ClassName)
-                {
-                    return element;
-                }
-            }
-
-            Debug.LogError("没有找到当前名字的类 === " + _ClassName);
-            return new KeyValuePair<string, PrefabInfo>();
-        }
     }
 }
 
