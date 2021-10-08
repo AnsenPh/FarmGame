@@ -22,15 +22,14 @@ namespace HotFix_Project
             NetworkCtr.Instance.UnRegisterMsg((int)MsgID.LoginMsg);
         }
 
-
         /// <summary>
         /// 消息回调
         /// </summary>
-
         void OnLoginMsg(ReceiveStruct _Struct)
         {
-
+            LoginDataNotify.Instance.Data_TestWindowShow.Data = true;
         }
+
 
         /// <summary>
         /// 消息发送

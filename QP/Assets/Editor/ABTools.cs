@@ -1,18 +1,18 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
 public class ABTools 
 {
-    //Ã¿´ÎÒª´òAB°üµÄÊ±ºò£¬¶¼±ØĞëÏÈÖ´ĞĞ
-    //1------¿½±´HotDllµ½ResourcesÄ¿Â¼
-    //2------×Ô¶¯Éú²úABÃüÃû
-    //3------Ñ¡ÔñÏàÓ¦µÄÆ½Ì¨´ò°üAB
-    //ÎªÊ²Ã´Òª°ÑHotDllÒÆ¶¯µ½ResourceÄ¿Â¼£¿
-    //ÒòÎªResourceÄ¿Â¼×îºó»á±»´ò°ü³ÉAB°ü£¬°ÑÈÈ¸üDLLÒ²´ò°ü³ÉABºó·½±ãÉÏ´«·şÎñÆ÷
-    //È»ºóÓÉ¿Í»§¶ËÈÈ¸üµÄÊ±ºòÏÂÔØ
-    [MenuItem("AB´ò°ü/¿½±´HotDllµ½ResourcesÄ¿Â¼")]
+    //æ¯æ¬¡è¦æ‰“ABåŒ…çš„æ—¶å€™ï¼Œéƒ½å¿…é¡»å…ˆæ‰§è¡Œ
+    //1------æ‹·è´HotDllåˆ°Resourcesç›®å½•
+    //2------è‡ªåŠ¨ç”Ÿäº§ABå‘½å
+    //3------é€‰æ‹©ç›¸åº”çš„å¹³å°æ‰“åŒ…AB
+    //ä¸ºä»€ä¹ˆè¦æŠŠHotDllç§»åŠ¨åˆ°Resourceç›®å½•ï¼Ÿ
+    //å› ä¸ºResourceç›®å½•æœ€åä¼šè¢«æ‰“åŒ…æˆABåŒ…ï¼ŒæŠŠçƒ­æ›´DLLä¹Ÿæ‰“åŒ…æˆABåæ–¹ä¾¿ä¸Šä¼ æœåŠ¡å™¨
+    //ç„¶åç”±å®¢æˆ·ç«¯çƒ­æ›´çš„æ—¶å€™ä¸‹è½½
+    [MenuItem("ABæ‰“åŒ…/æ‹·è´HotDllåˆ°Resourcesç›®å½•")]
     static void MoveHotDllToResource()
     {
         string CopyFrom = Path.Combine(DllDir, HotfixDll);
@@ -21,45 +21,45 @@ public class ABTools
         CopyFrom = Path.Combine(DllDir, HotfixPdb);
         CopyTo = Path.Combine(CopyToFolder, HotfixPdb + ".bytes");
         File.Copy(CopyFrom, CopyTo, true);
-        Debug.Log("Dll¿½±´  Íê³É");
+        Debug.Log("Dllæ‹·è´  å®Œæˆ");
     }
 
 
-    [MenuItem("AB´ò°ü/×Ô¶¯Éú²úABÃüÃû")]
+    [MenuItem("ABæ‰“åŒ…/è‡ªåŠ¨ç”Ÿäº§ABå‘½å")]
     public static void AutoSetABName()
     {
-        ClearAllABName();//ÇåÀíËùÓĞÒÑ¾­±»ÃüÃûµÄAB×ÊÔ´
+        ClearAllABName();//æ¸…ç†æ‰€æœ‰å·²ç»è¢«å‘½åçš„ABèµ„æº
         string TargetFolder = Application.dataPath + "/Resources/src/";
         SetABNames(TargetFolder);
-        Debug.Log("×Ô¶¯Éú²úABÃüÃû Íê³É");
+        Debug.Log("è‡ªåŠ¨ç”Ÿäº§ABå‘½å å®Œæˆ");
     }
 
-    [MenuItem("AB´ò°ü/Android")]
+    [MenuItem("ABæ‰“åŒ…/Android")]
     public static void BuildAB_Android()
     {
         BuildAssetsBundle(BuildTarget.Android);
-        Debug.Log("Android´ò°üAB Íê³É");
+        Debug.Log("Androidæ‰“åŒ…AB å®Œæˆ");
     }
 
-    [MenuItem("AB´ò°ü/IOS")]
+    [MenuItem("ABæ‰“åŒ…/IOS")]
     public static void BuildAB_IOS()
     {
         BuildAssetsBundle(BuildTarget.iOS);
-        Debug.Log("IOS´ò°üAB Íê³É");
+        Debug.Log("IOSæ‰“åŒ…AB å®Œæˆ");
     }
 
-    [MenuItem("AB´ò°ü/Windows")]
+    [MenuItem("ABæ‰“åŒ…/Windows")]
     public static void BuildAB_Windows()
     {
         BuildAssetsBundle(BuildTarget.StandaloneWindows64);
-        Debug.Log("Windows´ò°üAB Íê³É");
+        Debug.Log("Windowsæ‰“åŒ…AB å®Œæˆ");
     }
 
-    [MenuItem("AB´ò°ü/Web")]
+    [MenuItem("ABæ‰“åŒ…/Web")]
     public static void BuildAB_Web()
     {
         BuildAssetsBundle(BuildTarget.WebGL);
-        Debug.Log("Web´ò°üAB Íê³É");
+        Debug.Log("Webæ‰“åŒ…AB å®Œæˆ");
     }
 
 
@@ -97,7 +97,7 @@ public class ABTools
 
     static void SetABName(string _AssetPath)
     {
-        string ImporterPath = "Assets" + _AssetPath.Substring(Application.dataPath.Length); //ÕâÀïÂ·¾¶±ØĞëÒÔAssets¿ªÊ¼
+        string ImporterPath = "Assets" + _AssetPath.Substring(Application.dataPath.Length); //è¿™é‡Œè·¯å¾„å¿…é¡»ä»¥Assetså¼€å§‹
         AssetImporter Importer = AssetImporter.GetAtPath(ImporterPath);
         string[] TempNames = ImporterPath.Split('\\');
         string AssetName = "";

@@ -164,6 +164,7 @@ namespace HotFix_Project
             m_UIInfo.Add("LoginMgr", new PrefabInfo("LoginUI", "src/login"));
             m_UIInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login"));
             m_UIInfo.Add("LoadingMgr", new PrefabInfo("LoadingUI", "src/Loading"));
+            m_UIInfo.Add("LoginList", new PrefabInfo("LoginList", "src/login"));
         }
 
     }

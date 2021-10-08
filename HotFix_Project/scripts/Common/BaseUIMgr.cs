@@ -25,7 +25,7 @@ namespace HotFix_Project
         }
 
         //向当前节点添加子节点UI
-        void AddSubUI(string _ClassName , bool _ShowOrHide)
+        public void AddSubUI(string _ClassName , bool _ShowOrHide)
         {
             BaseUIMgr TempScripts = UIMgr.Instance.ShowSubUI(_ClassName, _ShowOrHide, m_GameObj.transform);
             m_SubUIScripts.Add(TempScripts);

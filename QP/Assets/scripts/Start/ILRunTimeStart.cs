@@ -113,6 +113,7 @@ public class ILRunTimeStart : MonoBehaviour
         m_Appdomain.DebugService.StartDebugService(56000);
     }
 
+    //当热更DLL加载完毕后
     void OnHotFixDllLoaded()
     {
         m_Appdomain.Invoke("HotFix_Project.MainStart", "Start", null, null);

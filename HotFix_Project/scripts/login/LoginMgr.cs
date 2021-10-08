@@ -16,6 +16,9 @@ namespace HotFix_Project
             m_LoginInBtn = m_GameObj.transform.Find("LoginBtn").GetComponent<BaseButton>();
             m_LoginInBtn.SetClickCallback(OnLoginInBtn);
 
+
+            AddSubUI("LoginList", true);
+
             ////////////////////////////////////////////////////////////////////////////
             /////                   如何接管Mono的方法
             ////////////////////////////////////////////////////////////////////////////
@@ -50,6 +53,11 @@ namespace HotFix_Project
             LoginDataNotify.Instance.Data_TestWindowShow.AddListner(this, TestWindowShow_CB);
         }
 
+        void TestWindowShow_CB(bool _Result)
+        {
+            UIMgr.Instance.ShowWindowUI("TestWindow", _Result);
+        }
+
         public override void RemoveDataListener()
         {
             LoginDataNotify.Instance.RemoveAllListenerByTarget(this);
@@ -60,10 +68,7 @@ namespace HotFix_Project
             LoginDataNotify.Instance.Data_TestWindowShow.Data = true;
         }
 
-        void TestWindowShow_CB(bool _Result)
-        {
-            UIMgr.Instance.ShowWindowUI("TestWindow", _Result);
-        }
+
 
 
     }
