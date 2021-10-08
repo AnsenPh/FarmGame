@@ -347,12 +347,12 @@
     <Compile Include="scripts\Common\UIMgr.cs" />
     <Compile Include="scripts\Common\DataNotify\BaseData.cs" />
     <Compile Include="scripts\Common\DataNotify\BaseDataNotify.cs" />
-    <Compile Include="scripts\login\content\LoginList.cs" />
-    <Compile Include="scripts\login\LoginConst.cs" />
-    <Compile Include="scripts\login\content\TestWindow.cs" />
-    <Compile Include="scripts\login\LoginDataNotify.cs" />
-    <Compile Include="scripts\login\LoginMgr.cs" />
-    <Compile Include="scripts\login\LoginNetwork.cs" />
+    <Compile Include="scripts\login\UI\content\LoginList.cs" />
+    <Compile Include="scripts\login\UI\LoginConst.cs" />
+    <Compile Include="scripts\login\UI\content\TestWindow.cs" />
+    <Compile Include="scripts\login\UI\LoginDataNotify.cs" />
+    <Compile Include="scripts\login\UI\LoginMgr.cs" />
+    <Compile Include="scripts\login\UI\LoginNetwork.cs" />
     <Compile Include="scripts\MainStart.cs" />
     <Compile Include="scripts\Common\MonoEvent\ILMonoBehaviour.cs" />
     <Compile Include="scripts\Common\BaseNetwork.cs" />
@@ -366,6 +366,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\Loading\content\" />
+    <Folder Include="scripts\login\3D\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -18,7 +18,6 @@ namespace HotFix_Project
 
 
             AddSubUI("LoginList", true);
-
             ////////////////////////////////////////////////////////////////////////////
             /////                   如何接管Mono的方法
             ////////////////////////////////////////////////////////////////////////////
@@ -67,10 +66,6 @@ namespace HotFix_Project
         {
             LoginDataNotify.Instance.Data_TestWindowShow.Data = true;
         }
-
-
-
-
     }
 }
 

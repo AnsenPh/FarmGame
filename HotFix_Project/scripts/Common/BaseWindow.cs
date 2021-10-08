@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 namespace HotFix_Project
 {
     public abstract class BaseWindow : BaseUIMgr
@@ -18,6 +20,20 @@ namespace HotFix_Project
             m_GameObj.transform.localRotation = _Prefab.transform.rotation;
             m_GameObj.transform.localScale = _Prefab.transform.localScale;
 
+            //给弹窗内容设置点击事件，避免点击事件穿透到黑背景上，因为黑背景会响应点击事件并会关闭弹窗
+            EventTrigger trigger = m_GameObj.GetComponent<EventTrigger>();
+            if (trigger == null)
+            {
+                trigger = m_GameObj.AddComponent<EventTrigger>();
+            }
+
+            List<EventTrigger.Entry> entrys = trigger.triggers;
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerClick;
+            entry.callback.AddListener(OnWindowContentClicked);
+            entrys.Add(entry);
+
+
             InitGameObjParam();
             AddDataListener();
             Show(true);
@@ -31,6 +47,36 @@ namespace HotFix_Project
             m_WindowRootObj.transform.localPosition = Prefab.transform.position;
             m_WindowRootObj.transform.localRotation = Prefab.transform.rotation;
             m_WindowRootObj.transform.localScale = Prefab.transform.localScale;
+            AddDarkBGClickEvent();
+        }
+
+
+        //点击黑背景自动关闭弹窗 
+        void AddDarkBGClickEvent()
+        {
+            EventTrigger trigger = m_WindowRootObj.GetComponent<EventTrigger>();
+            if (trigger == null)
+            {
+                trigger = m_WindowRootObj.AddComponent<EventTrigger>();
+            }
+                
+            List<EventTrigger.Entry> entrys = trigger.triggers;
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerClick;
+            entry.callback.AddListener(OnDarkBGClicked);
+            entrys.Add(entry);
+        }
+
+  
+        void OnDarkBGClicked(BaseEventData arg0)
+        {
+            ExcutiveHide();
+        }
+
+        //给弹窗内容设置点击事件，避免点击事件穿透到黑背景上，因为黑背景会响应点击事件并会关闭弹窗
+        void OnWindowContentClicked(BaseEventData arg0)
+        {
+
         }
 
         public override void Show(bool _Show)
@@ -86,6 +132,14 @@ namespace HotFix_Project
         {
             m_IsAnimating = false;
             m_WindowRootObj.SetActive(false);
+        }
+
+        public override void Delete()
+        {
+            m_GameObj.transform.DOKill(true);
+            base.Delete();
+            GameObject.Destroy(m_WindowRootObj);
+            m_WindowRootObj = null;
         }
 
     }

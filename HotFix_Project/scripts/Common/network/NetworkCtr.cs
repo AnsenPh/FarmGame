@@ -83,11 +83,6 @@ namespace HotFix_Project
 
         void OnMsg(Byte[] _Data)
         {
-            if(_Data[0] == 0x1f && _Data[1] == 0x8b && _Data[2] == 0x08 && _Data[3] == 0x00)
-            {
-                _Data = DecompressionData(_Data);
-            }
-
             ReceiveStruct DataAfterParse = TryParseData(_Data);
 
             int CurrentActionId = DataAfterParse.m_ActionID;
@@ -100,22 +95,7 @@ namespace HotFix_Project
             m_EventDic[CurrentActionId](DataAfterParse);
 
         }
-        
-        byte[] DecompressionData(byte[] _Data)
-        {
-            MemoryStream ms = new MemoryStream();
-            int count = 0;
-            GZipInputStream zip = new GZipInputStream(new MemoryStream(_Data));
-            byte[] TempData = new byte[256];
 
-            while((count = zip.Read(TempData,0, TempData.Length))!=0)
-            {
-                ms.Write(TempData,0,count);
-            }
-            byte[] result = ms.ToArray();
-            ms.Close();
-            return result;
-        }
 
         ReceiveStruct TryParseData(byte[] _Data)
         {

@@ -22,7 +22,7 @@ namespace HotFix_Project
             }
         }
 
-        public BaseUIMgr ShowUI(string _ClassName , bool _Show , Transform _Parent)
+        public BaseUIMgr NewPrefab(string _ClassName , Transform _Parent)
         {
             PrefabInfo PrefabInfo = m_UIInfo[_ClassName];
             string PrefabName = PrefabInfo.m_PrefabName;
@@ -42,73 +42,92 @@ namespace HotFix_Project
             }
         }
 
-        public BaseUIMgr ShowRootUI(string _ClassName, bool _Show, bool _HidePrevious = true)
+        public BaseUIMgr ShowRootUI(string _ClassName, bool _Show)
         {
-            BaseUIMgr TempScripts = ShowUI(_ClassName, _Show, m_RootUIObj.transform);
-            m_RootUI.Add(TempScripts);
-
-            if(_HidePrevious)
+            if(m_RootUI.ContainsKey(_ClassName))
             {
-                for (int i = 0; i < m_RootUI.Count - 1; i++)
-                {
-                    m_RootUI[i].Show(false);
-                }
+                BaseUIMgr CurrentScripts = m_RootUI[_ClassName];
+                CurrentScripts.Show(_Show);
+                return CurrentScripts;
             }
-
-
-            return TempScripts;
+            else
+            {
+                BaseUIMgr TempScripts = NewPrefab(_ClassName, m_RootUIObj.transform);
+                m_RootUI.Add(_ClassName , TempScripts);
+                TempScripts.Show(_Show);
+                return TempScripts;
+            }
         }
 
         public BaseUIMgr ShowWindowUI(string _ClassName, bool _Show )
         {
-            BaseUIMgr TempScripts = ShowUI(_ClassName, _Show, m_WindowUIObj.transform);
-            m_WindowUI.Add(TempScripts);
-            return TempScripts;
+            if(m_WindowUI.ContainsKey(_ClassName))
+            {
+                BaseUIMgr CurrentScripts = m_WindowUI[_ClassName];
+                CurrentScripts.Show(_Show);
+                return CurrentScripts;
+            }
+            else
+            {
+                BaseUIMgr TempScripts = NewPrefab(_ClassName, m_WindowUIObj.transform);
+                m_WindowUI.Add(_ClassName , TempScripts);
+                TempScripts.Show(_Show);
+                return TempScripts;
+            }
         }
 
-        public BaseUIMgr ShowSubUI(string _ClassName, bool _Show , Transform _Parent)
+        public void DeletePreviousRootUI(bool HideOnly = false)
         {
-            BaseUIMgr TempScripts = ShowUI(_ClassName, _Show, _Parent);
-            return TempScripts;
-        }
-
-        public void HideAllRootUI(bool Destroy = true)
-        {
-            if(Destroy)
+            if(HideOnly == false)
             {
                 while (m_RootUI.Count > 1)
                 {
-                    m_RootUI[0].Delete();
-                    m_RootUI[0] = null;
-                    m_RootUI.RemoveAt(0);
+                    string Key = m_RootUI.ElementAt(0).Key;
+                    BaseUIMgr Value = m_RootUI.ElementAt(0).Value;
+                    Value.Delete();
+                    m_RootUI[Key] = null;
+                    m_RootUI.Remove(Key);
                 }
             }
             else
             {
                 for(int i = 0; i < m_RootUI.Count - 1; i++)
                 {
-                    m_RootUI[i].Show(false);
+                    m_RootUI.ElementAt(i).Value.Show(false);
                 }
             }
-
         }
 
-        public void HideAllWindow(bool Destroy = true)
+        public void DeleteAllRootUI()
         {
-            if (Destroy)
+            while (m_RootUI.Count > 0)
             {
-                while (m_WindowUI.Count > 1)
+                string Key = m_RootUI.ElementAt(0).Key;
+                BaseUIMgr Value = m_RootUI.ElementAt(0).Value;
+                Value.Delete();
+                m_RootUI[Key] = null;
+                m_RootUI.Remove(Key);
+            }
+        }
+
+        public void DeleteAllWindow(bool HideOnly = false)
+        {
+            if (HideOnly == false)
+            {
+                while (m_WindowUI.Count > 0)
                 {
-                    m_WindowUI[0].Delete();
-                    m_WindowUI[0] = null;
-                    m_WindowUI.RemoveAt(0);
+                    string Key = m_WindowUI.ElementAt(0).Key;
+                    BaseUIMgr Value = m_WindowUI.ElementAt(0).Value;
+                    Value.Delete();
+                    m_WindowUI[Key] = null;
+                    m_WindowUI.Remove(Key);
                 }
             }
             else
             {
-                for (int i = 0; i < m_WindowUI.Count - 1; i++)
+                for (int i = 0; i < m_WindowUI.Count; i++)
                 {
-                    m_WindowUI[i].Show(false);
+                    m_WindowUI.ElementAt(i).Value.Show(false);
                 }
             }
         }
@@ -125,8 +144,8 @@ namespace HotFix_Project
         GameObject m_WindowUIObj = null;
 
         //存放所有UI代码的list。 
-        List<BaseUIMgr> m_WindowUI;
-        List<BaseUIMgr> m_RootUI;
+        Dictionary<string , BaseUIMgr> m_WindowUI;
+        Dictionary<string , BaseUIMgr> m_RootUI;
 
 
         struct PrefabInfo
@@ -158,13 +177,13 @@ namespace HotFix_Project
 
         private void InitList()
         {
-            m_WindowUI = new List<BaseUIMgr>();
-            m_RootUI = new List<BaseUIMgr>();
+            m_WindowUI = new Dictionary<string, BaseUIMgr>();
+            m_RootUI = new Dictionary<string, BaseUIMgr>();
             m_UIInfo = new Dictionary<string, PrefabInfo>();
-            m_UIInfo.Add("LoginMgr", new PrefabInfo("LoginUI", "src/login"));
-            m_UIInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login"));
+            m_UIInfo.Add("LoginMgr", new PrefabInfo("LoginUI", "src/login/ui"));
+            m_UIInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login/ui"));
             m_UIInfo.Add("LoadingMgr", new PrefabInfo("LoadingUI", "src/Loading"));
-            m_UIInfo.Add("LoginList", new PrefabInfo("LoginList", "src/login"));
+            m_UIInfo.Add("LoginList", new PrefabInfo("LoginList", "src/login/ui"));
         }
 
     }

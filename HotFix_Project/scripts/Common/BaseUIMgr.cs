@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace HotFix_Project
 {
     public abstract class BaseUIMgr
     {
         public GameObject m_GameObj;
-        List<BaseUIMgr> m_SubUIScripts = new List<BaseUIMgr>();
+        Dictionary<string, BaseUIMgr> m_SubUIScripts = new Dictionary<string, BaseUIMgr>();
         public virtual void SetGameObj(GameObject _Prefab , Transform _Parent)
         {
             m_GameObj = GameObject.Instantiate(_Prefab);
@@ -25,23 +26,38 @@ namespace HotFix_Project
         }
 
         //向当前节点添加子节点UI
-        public void AddSubUI(string _ClassName , bool _ShowOrHide)
+        public BaseUIMgr AddSubUI(string _ClassName , bool _ShowOrHide)
         {
-            BaseUIMgr TempScripts = UIMgr.Instance.ShowSubUI(_ClassName, _ShowOrHide, m_GameObj.transform);
-            m_SubUIScripts.Add(TempScripts);
+            if(m_SubUIScripts.ContainsKey(_ClassName))
+            {
+                Debug.LogWarning("这个子prefab已经添加过了！！请别重复添加===" + _ClassName);
+                return null;
+            }
+            BaseUIMgr TempScripts = UIMgr.Instance.NewPrefab(_ClassName, m_GameObj.transform);
+            TempScripts.Show(_ShowOrHide);
+            m_SubUIScripts.Add(_ClassName , TempScripts);
+            return TempScripts;
+        }
+
+        public BaseUIMgr NewSubPrefab(string _ClassName)
+        {
+            BaseUIMgr TempScripts = UIMgr.Instance.NewPrefab(_ClassName,null);
+            return TempScripts;
         }
 
         public virtual void Delete()
         {
-            for(int i = 0; i < m_SubUIScripts.Count; i++)
+            RemoveDataListener();
+            for (int i = 0; i < m_SubUIScripts.Count; i++)
             {
-                m_SubUIScripts[i].RemoveDataListener();
-                m_SubUIScripts[i].Delete();
-                m_SubUIScripts[i] = null;
+                string Key = m_SubUIScripts.ElementAt(i).Key;
+                BaseUIMgr Value = m_SubUIScripts.ElementAt(i).Value;
+                Value.Delete();
+                m_SubUIScripts[Key] = null;
             }
             m_SubUIScripts.Clear();
-
             GameObject.Destroy(m_GameObj);
+            m_GameObj = null;
         }
 
 
