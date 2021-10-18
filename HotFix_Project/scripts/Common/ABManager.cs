@@ -8,7 +8,7 @@ namespace HotFix_Project
 {
     public class ABManager
     {
-        static bool DebugMode = false;
+        static bool DebugMode = true;
         private static Dictionary<string, AssetBundle> m_AssetsBundleCache = new Dictionary<string, AssetBundle>();
         private static string GetABFolder()
         {
