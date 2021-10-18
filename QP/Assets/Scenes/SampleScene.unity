@@ -475,8 +475,6 @@ GameObject:
   - component: {fileID: 506348814}
   - component: {fileID: 506348813}
   - component: {fileID: 506348812}
-  - component: {fileID: 506348816}
-  - component: {fileID: 506348817}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -531,7 +529,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -557,28 +555,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 48.492, y: 180, z: 0}
---- !u!114 &506348816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506348811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c2cd6fe99fe7404f9f598b180feb6d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useMouse: 1
---- !u!45 &506348817
-Skybox:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506348811}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 54dce45688b82ea489151c534417a15b, type: 2}
 --- !u!1 &662151924
 GameObject:
   m_ObjectHideFlags: 0

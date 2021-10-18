@@ -1,0 +1,50 @@
+ManifestFileVersion: 0
+CRC: 1681901177
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f3e2dbbdc81426ce9f88cfc63e9548b2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 40d98e3cb5663f7ec9e66e6a0a2d3d82
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41187790d4ea6454e9567b4521616c8a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/src/login/UI/TestWindow.prefab
+- Assets/Resources/src/login/UI/LoginList.prefab
+- Assets/Resources/src/login/UI/LoginUI.prefab
+Dependencies:
+- D:/Git8/QP/Assets/StreamingAssets/StandaloneWindows64/srccommonbasebtn

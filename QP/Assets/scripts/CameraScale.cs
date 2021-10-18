@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ public class CameraScale : MonoBehaviour
 {
 
     float distance = 0.0f;
-    //Ëõ·ÅÏµÊı
+    //ç¼©æ”¾ç³»æ•°
     float scaleFactor = 1f;
 
 
@@ -14,7 +14,7 @@ public class CameraScale : MonoBehaviour
     float minDistance = 0.0f;
 
 
-    //¼ÇÂ¼ÉÏÒ»´ÎÊÖ»ú´¥ÃşÎ»ÖÃÅĞ¶ÏÓÃ»§ÊÇÔÚ×ó·Å´ó»¹ÊÇËõĞ¡ÊÖÊÆ
+    //è®°å½•ä¸Šä¸€æ¬¡æ‰‹æœºè§¦æ‘¸ä½ç½®åˆ¤æ–­ç”¨æˆ·æ˜¯åœ¨å·¦æ”¾å¤§è¿˜æ˜¯ç¼©å°æ‰‹åŠ¿
     private Vector2 oldPosition1;
     private Vector2 oldPosition2;
 
@@ -26,16 +26,16 @@ public class CameraScale : MonoBehaviour
 
     public bool useMouse = true;
 
-    //¶¨ÒåÉãÏñ»ú¿ÉÒÔ»î¶¯µÄ·¶Î§
+    //å®šä¹‰æ‘„åƒæœºå¯ä»¥æ´»åŠ¨çš„èŒƒå›´
     float xMin = -10;
     float xMax = 10;
     float zMin = -5;
     float zMax = 20;
 
-    //Õâ¸ö±äÁ¿ÓÃÀ´¼ÇÂ¼µ¥Ö¸Ë«Ö¸µÄ±ä»»
+    //è¿™ä¸ªå˜é‡ç”¨æ¥è®°å½•å•æŒ‡åŒæŒ‡çš„å˜æ¢
     private bool m_IsSingleFinger;
 
-    //³õÊ¼»¯ÓÎÏ·ĞÅÏ¢ÉèÖÃ
+    //åˆå§‹åŒ–æ¸¸æˆä¿¡æ¯è®¾ç½®
     void Start()
     {
         m_Camera = this.GetComponent<Camera>();
@@ -44,12 +44,12 @@ public class CameraScale : MonoBehaviour
 
     void Update()
     {
-        //ÅĞ¶Ï´¥ÃşÊıÁ¿Îªµ¥µã´¥Ãş
+        //åˆ¤æ–­è§¦æ‘¸æ•°é‡ä¸ºå•ç‚¹è§¦æ‘¸
         if (Input.touchCount == 1)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began || !m_IsSingleFinger)
             {
-                //ÔÚ¿ªÊ¼´¥Ãş»òÕß´ÓÁ½×ÖÊÖÖ¸·Å¿ª»ØÀ´µÄÊ±ºò¼ÇÂ¼Ò»ÏÂ´¥ÃşµÄÎ»ÖÃ
+                //åœ¨å¼€å§‹è§¦æ‘¸æˆ–è€…ä»ä¸¤å­—æ‰‹æŒ‡æ”¾å¼€å›æ¥çš„æ—¶å€™è®°å½•ä¸€ä¸‹è§¦æ‘¸çš„ä½ç½®
                 lastSingleTouchPosition = Input.GetTouch(0).position;
             }
             if (Input.GetTouch(0).phase == TouchPhase.Moved)
@@ -61,8 +61,8 @@ public class CameraScale : MonoBehaviour
         }
         else if (Input.touchCount > 1)
         {
-            //µ±´Óµ¥Ö¸´¥Ãş½øÈë¶àÖ¸´¥ÃşµÄÊ±ºò,¼ÇÂ¼Ò»ÏÂ´¥ÃşµÄÎ»ÖÃ
-            //±£Ö¤¼ÆËãËõ·Å¶¼ÊÇ´ÓÁ½Ö¸ÊÖÖ¸´¥Åö¿ªÊ¼µÄ
+            //å½“ä»å•æŒ‡è§¦æ‘¸è¿›å…¥å¤šæŒ‡è§¦æ‘¸çš„æ—¶å€™,è®°å½•ä¸€ä¸‹è§¦æ‘¸çš„ä½ç½®
+            //ä¿è¯è®¡ç®—ç¼©æ”¾éƒ½æ˜¯ä»ä¸¤æŒ‡æ‰‹æŒ‡è§¦ç¢°å¼€å§‹çš„
             if (m_IsSingleFinger)
             {
                 oldPosition1 = Input.GetTouch(0).position;
@@ -78,7 +78,7 @@ public class CameraScale : MonoBehaviour
         }
 
 
-        //ÓÃÊó±êµÄ
+        //ç”¨é¼ æ ‡çš„
         if (useMouse)
         {
             distance -= Input.GetAxis("Mouse ScrollWheel") * scaleFactor;
@@ -97,11 +97,11 @@ public class CameraScale : MonoBehaviour
     }
 
     /// <summary>
-    /// ´¥ÃşËõ·ÅÉãÏñÍ·
+    /// è§¦æ‘¸ç¼©æ”¾æ‘„åƒå¤´
     /// </summary>
     private void ScaleCamera()
     {
-        //¼ÆËã³öµ±Ç°Á½µã´¥ÃşµãµÄÎ»ÖÃ
+        //è®¡ç®—å‡ºå½“å‰ä¸¤ç‚¹è§¦æ‘¸ç‚¹çš„ä½ç½®
         var tempPosition1 = Input.GetTouch(0).position;
         var tempPosition2 = Input.GetTouch(1).position;
 
@@ -109,22 +109,22 @@ public class CameraScale : MonoBehaviour
         float currentTouchDistance = Vector3.Distance(tempPosition1, tempPosition2);
         float lastTouchDistance = Vector3.Distance(oldPosition1, oldPosition2);
 
-        //¼ÆËãÉÏ´ÎºÍÕâ´ÎË«Ö¸´¥ÃşÖ®¼äµÄ¾àÀë²î¾à
-        //È»ºóÈ¥¸ü¸ÄÉãÏñ»úµÄ¾àÀë
+        //è®¡ç®—ä¸Šæ¬¡å’Œè¿™æ¬¡åŒæŒ‡è§¦æ‘¸ä¹‹é—´çš„è·ç¦»å·®è·
+        //ç„¶åå»æ›´æ”¹æ‘„åƒæœºçš„è·ç¦»
         distance -= (currentTouchDistance - lastTouchDistance) * scaleFactor * Time.deltaTime;
 
 
-        //°Ñ¾àÀëÏŞÖÆ×¡ÔÚminºÍmaxÖ®¼ä
+        //æŠŠè·ç¦»é™åˆ¶ä½åœ¨minå’Œmaxä¹‹é—´
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
 
 
-        //±¸·İÉÏÒ»´Î´¥ÃşµãµÄÎ»ÖÃ£¬ÓÃÓÚ¶Ô±È
+        //å¤‡ä»½ä¸Šä¸€æ¬¡è§¦æ‘¸ç‚¹çš„ä½ç½®ï¼Œç”¨äºå¯¹æ¯”
         oldPosition1 = tempPosition1;
         oldPosition2 = tempPosition2;
     }
 
 
-    //Update·½·¨Ò»µ©µ÷ÓÃ½áÊøÒÔºó½øÈëÕâÀïËã³öÖØÖÃÉãÏñ»úµÄÎ»ÖÃ
+    //Updateæ–¹æ³•ä¸€æ—¦è°ƒç”¨ç»“æŸä»¥åè¿›å…¥è¿™é‡Œç®—å‡ºé‡ç½®æ‘„åƒæœºçš„ä½ç½®
     private void LateUpdate()
     {
         var position = m_CameraOffset + m_Camera.transform.forward * -distance;
@@ -140,7 +140,7 @@ public class CameraScale : MonoBehaviour
         Vector3 v = currentTouchPosition - lastTouchPostion;
         m_CameraOffset += new Vector3(v.x, 0, v.z) * m_Camera.transform.position.y;
 
-        //°ÑÉãÏñ»úµÄÎ»ÖÃ¿ØÖÆÔÚ·¶Î§ÄÚ
+        //æŠŠæ‘„åƒæœºçš„ä½ç½®æ§åˆ¶åœ¨èŒƒå›´å†…
         m_CameraOffset = new Vector3(Mathf.Clamp(m_CameraOffset.x, xMin, xMax), m_CameraOffset.y, Mathf.Clamp(m_CameraOffset.z, zMin, zMax));
         lastSingleTouchPosition = scenePos;
     }

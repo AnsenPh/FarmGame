@@ -1,0 +1,26 @@
+ManifestFileVersion: 0
+CRC: 2679565099
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: srccommonbasebtn
+      Dependencies: {}
+    Info_1:
+      Name: srccommonscalebtn
+      Dependencies: {}
+    Info_2:
+      Name: srccommonwindow
+      Dependencies: {}
+    Info_3:
+      Name: srchotfix
+      Dependencies: {}
+    Info_4:
+      Name: srcloading
+      Dependencies: {}
+    Info_5:
+      Name: srcloginui
+      Dependencies:
+        Dependency_0: srccommonbasebtn
+    Info_6:
+      Name: srcmainscene3d
+      Dependencies: {}

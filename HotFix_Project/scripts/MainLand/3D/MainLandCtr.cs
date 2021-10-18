@@ -11,10 +11,11 @@ namespace HotFix_Project
     {
         List<GameObject> m_Btns;
         GameObject m_FunctionObj;
+        Camera m_Camera;
         public override void InitGameObjParam()
         {
             m_FunctionObj = m_GameObj.transform.Find("Function").gameObject;
-
+            m_Camera = m_GameObj.transform.Find("Camera").GetComponent<Camera>();
             ILMonoBehaviour Mono = m_GameObj.AddComponent<ILMonoBehaviour>();
             Mono.OnUpdate = Update;
 
@@ -35,7 +36,7 @@ namespace HotFix_Project
         {
             if (Input.GetMouseButtonUp(0))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit Hit;
                 if (Physics.Raycast(ray, out Hit, float.MaxValue, LayerMask.GetMask("Touch3D")))
                 {

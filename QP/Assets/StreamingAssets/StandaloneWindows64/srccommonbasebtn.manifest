@@ -1,0 +1,39 @@
+ManifestFileVersion: 0
+CRC: 3484704131
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 431c45e57b2a8e0bce95d9638acda00b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5632adc7d8d1ace65f1f185954844e1d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41187790d4ea6454e9567b4521616c8a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/src/common/baseBtn/BaseButton.prefab
+Dependencies: []
