@@ -14,6 +14,10 @@ namespace HotFix_Project
         public override void InitGameObjParam()
         {
             m_FunctionObj = m_GameObj.transform.Find("Function").gameObject;
+
+            ILMonoBehaviour Mono = m_GameObj.AddComponent<ILMonoBehaviour>();
+            Mono.OnUpdate = Update;
+
             InitBtnAnm();
         }
         //添加监听事件
@@ -27,6 +31,32 @@ namespace HotFix_Project
 
         }
 
+        void Update()
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit Hit;
+                if (Physics.Raycast(ray, out Hit, float.MaxValue, LayerMask.GetMask("Touch3D")))
+                {
+                    OnFunctionObjClicked(Hit.collider.gameObject);
+                }
+            }
+        }
+
+        void OnFunctionObjClicked(GameObject _FunctionObj)
+        {
+            Vector3 CurrentScale = _FunctionObj.transform.localScale;
+            Vector3 ScaleTo = CurrentScale * 1.1f;
+            _FunctionObj.transform.DOKill(true);
+            Sequence Seq = DOTween.Sequence();
+            Seq.Append(_FunctionObj.transform.DOScale(ScaleTo, 0.1f));
+            Seq.Append(_FunctionObj.transform.DOScale(CurrentScale, 0.1f));
+            if (_FunctionObj.name == "Home")
+            {
+                
+            }
+        }
 
         void InitBtnAnm()
         {
@@ -36,16 +66,7 @@ namespace HotFix_Project
             m_Btns.Add(temp);
             for (int i = 0; i < m_Btns.Count; i++)
             {
-                GameObject Current = m_Btns[i];
-                float CurrentY = Current.transform.localPosition.y;
-                float TopY = CurrentY + 50;
-                float BottomY = CurrentY - 50;
-                Sequence Seq = DOTween.Sequence();
-                Seq.Append(Current.transform.DOLocalMoveY(TopY, 1));
-                Seq.Append(Current.transform.DOLocalMoveY(CurrentY, 1));
-                Seq.Append(Current.transform.DOLocalMoveY(BottomY, 1));
-                Seq.Append(Current.transform.DOLocalMoveY(CurrentY, 1));
-                Seq.SetLoops(-1, LoopType.Restart);
+
             }
         }
     }

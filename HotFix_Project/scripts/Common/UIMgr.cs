@@ -23,6 +23,11 @@ namespace HotFix_Project
             }
         }
 
+        public Camera GetMainCamera()
+        {
+            return m_MainCamera;
+        }
+
         public enum UIType
         {
             RootUI,
@@ -156,6 +161,8 @@ namespace HotFix_Project
         GameObject m_Root3DObj = null;
         //Loading读取界面，用于遮挡画面，等待场景读取完毕
         GameObject m_LoadingObj = null;
+        //主相机
+        Camera m_MainCamera = null;
 
         //存放所有UI代码的list。 
         private Dictionary<string , BaseUIMgr> m_WindowUI;
@@ -189,6 +196,7 @@ namespace HotFix_Project
             m_WindowUIObj = m_CanvasObj.transform.Find("WindowUI").gameObject;
             m_LoadingObj = m_CanvasObj.transform.Find("Loading").gameObject;
             m_Root3DObj = GameObject.Find("3DRoot");
+            m_MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         }
 
         private void DeleteAllRootUI()
