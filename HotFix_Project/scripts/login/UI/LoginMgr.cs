@@ -54,7 +54,7 @@ namespace HotFix_Project
 
         void TestWindowShow_CB(bool _Result)
         {
-            UIMgr.Instance.ShowWindowUI("TestWindow", _Result);
+            UIMgr.Instance.ShowUI("TestWindow", _Result , UIMgr.UIType.WindowUI);
         }
 
         public override void RemoveDataListener()
@@ -64,7 +64,7 @@ namespace HotFix_Project
 
         void OnLoginInBtn(int _Data)
         {
-            LoginDataNotify.Instance.Data_TestWindowShow.Data = true;
+            //LoginDataNotify.Instance.Data_TestWindowShow.Data = true;
         }
     }
 }

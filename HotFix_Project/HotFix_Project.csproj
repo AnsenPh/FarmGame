@@ -347,6 +347,7 @@
     <Compile Include="scripts\Common\UIMgr.cs" />
     <Compile Include="scripts\Common\DataNotify\BaseData.cs" />
     <Compile Include="scripts\Common\DataNotify\BaseDataNotify.cs" />
+    <Compile Include="scripts\MainLand\3D\MainLandCtr.cs" />
     <Compile Include="scripts\login\UI\content\LoginList.cs" />
     <Compile Include="scripts\login\UI\LoginConst.cs" />
     <Compile Include="scripts\login\UI\content\TestWindow.cs" />
@@ -366,7 +367,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\Loading\content\" />
-    <Folder Include="scripts\login\3D\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

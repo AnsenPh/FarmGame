@@ -52,82 +52,135 @@ namespace HotFix_Project
             return FinalPath;
         }
 
+
+
+        public static Object LoadAssetFromAB(string _Path, string _FileName)
+        {
+            if(DebugMode)
+            {
+                string FullPath = _Path + "/" + _FileName;
+                Object obj = Resources.Load(FullPath);
+                return obj;
+            }
+            else
+            {
+                AssetBundle TempAB = TryToLoad(_Path );
+                Object Src = TempAB.LoadAsset<Object>(_FileName.ToLower());
+                return Src;
+            }
+
+        }
+
+        public static void LoadAssetFromABAsync(string _Path, string _FileName , System.Action<Object> _FinishCallback, System.Action<float> _UpdateCallBack = null)
+        {
+            if (DebugMode)
+            {
+                ILRunTimeStart.GetInstance().DoCoroutine(AsyncResourceLoad(_Path, _FileName , _FinishCallback , _UpdateCallBack));
+            }
+            else
+            {
+                ILRunTimeStart.GetInstance().DoCoroutine(AsyncABLoad(_Path, _FileName, _FinishCallback , _UpdateCallBack));
+            }
+            
+        }
+
+        public static IEnumerator AsyncResourceLoad(string _Path, string _FileName, System.Action<Object> _FinishCallback, System.Action<float> _UpdateCallBack = null)
+        {
+            string FullPath = _Path + "/" + _FileName;
+            ResourceRequest Result = Resources.LoadAsync<Object>(FullPath);
+            while (!Result.isDone)
+            {
+                if (_UpdateCallBack != null)
+                {
+                    _UpdateCallBack(Result.progress);
+                }
+                yield return null;
+
+            }
+            yield return Result;
+            if(_FinishCallback != null)
+            {
+                _FinishCallback(Result.asset );
+            }
+        }
+
+        public static IEnumerator AsyncABLoad(string _Path, string _FileName, System.Action<Object> _FinishCallback , System.Action<float> _UpdateCallBack = null)
+        {
+            string ABName = ConvertToABName(_Path);
+            if (m_AssetsBundleCache.ContainsKey(ABName))
+            {
+                AssetBundle CurrentBundle = m_AssetsBundleCache[ABName];
+                AssetBundleRequest AssetsRequest = CurrentBundle.LoadAssetAsync(_FileName);
+
+                while (!AssetsRequest.isDone)
+                {
+                    if (_UpdateCallBack != null)
+                    {
+                        _UpdateCallBack(AssetsRequest.progress);
+                    }
+                    yield return null;
+
+                }
+                yield return AssetsRequest;
+
+                if (_FinishCallback != null)
+                {
+                    _FinishCallback(AssetsRequest.asset);
+                }
+            }
+            else
+            {
+                AssetBundleCreateRequest Bundlerequest = AssetBundle.LoadFromFileAsync(ABName);
+                while (!Bundlerequest.isDone)
+                {
+                    if (_UpdateCallBack != null)
+                    {
+                        _UpdateCallBack(Bundlerequest.progress);
+                    }
+                    yield return null;
+
+                }
+                yield return Bundlerequest;
+
+                AssetBundle CurrentBundle = Bundlerequest.assetBundle;
+                if (m_AssetsBundleCache.ContainsKey(ABName) == false)
+                {
+                    m_AssetsBundleCache.Add(ABName, CurrentBundle);
+                }
+
+                AssetBundleRequest AssetsRequest = CurrentBundle.LoadAssetAsync(_FileName);
+
+                while (!AssetsRequest.isDone)
+                {
+                    if (_UpdateCallBack != null)
+                    {
+                        _UpdateCallBack(AssetsRequest.progress);
+                    }
+                    yield return null;
+
+                }
+                yield return AssetsRequest;
+
+                if (_FinishCallback != null)
+                {
+                    _FinishCallback(AssetsRequest.asset);
+                }
+            }
+        }
+
         private static AssetBundle TryToLoad(string _Path)
         {
             string ABName = ConvertToABName(_Path);
             if (m_AssetsBundleCache.ContainsKey(ABName))
             {
                 AssetBundle CurrentValue = m_AssetsBundleCache[ABName];
-                if (!CurrentValue)
-                {
-                    CurrentValue = AssetBundle.LoadFromFile(ABName);
-                    m_AssetsBundleCache[ABName] = CurrentValue;
-                    return CurrentValue;
-                }
-                else
-                {
-                    return CurrentValue;
-                }
+                return CurrentValue;
             }
             else
             {
                 AssetBundle NewAB = AssetBundle.LoadFromFile(ABName);
                 m_AssetsBundleCache.Add(ABName, NewAB);
                 return NewAB;
-            }
-
-
-        }
-
-        public static GameObject LoadAssetFromAB_GameObject(string _Path, string _FileName)
-        {
-            if(DebugMode)
-            {
-                string FullPath = _Path + "/" + _FileName;
-                object obj = Resources.Load(FullPath, typeof(GameObject));
-                GameObject Temp = (GameObject)obj;
-                return Temp;
-            }
-            else
-            {
-                AssetBundle TempAB = TryToLoad(_Path);
-                GameObject Src = TempAB.LoadAsset<GameObject>(_FileName.ToLower());
-                return Src;
-            }
-
-        }
-
-        public static TextAsset LoadAssetFromAB_TextAsset(string _Path, string _FileName)
-        {
-            if (DebugMode)
-            {
-                string FullPath = _Path + "/" + _FileName;
-                object obj = Resources.Load(FullPath, typeof(TextAsset));
-                TextAsset Temp = (TextAsset)obj;
-                return Temp;
-            }
-            else
-            {
-                AssetBundle TempAB = TryToLoad(_Path);
-                TextAsset Src = TempAB.LoadAsset<TextAsset>(_FileName.ToLower());
-                return Src;
-            }
-        }
-
-        public static Sprite LoadAssetFromAB_Sprite(string _Path, string _FileName)
-        {
-            if (DebugMode)
-            {
-                string FullPath = _Path + "/" + _FileName;
-                object obj = Resources.Load(FullPath, typeof(Sprite));
-                Sprite Temp = (Sprite)obj;
-                return Temp;
-            }
-            else
-            {
-                AssetBundle TempAB = TryToLoad(_Path);
-                Sprite Src = TempAB.LoadAsset<Sprite>(_FileName.ToLower());
-                return Src;
             }
         }
     }

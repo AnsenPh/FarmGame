@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using Object = UnityEngine.Object;
 
 namespace HotFix_Project
 {
@@ -22,114 +23,123 @@ namespace HotFix_Project
             }
         }
 
+        public enum UIType
+        {
+            RootUI,
+            WindowUI,
+            UI3D,
+        }
+
         public BaseUIMgr NewPrefab(string _ClassName , Transform _Parent)
         {
-            PrefabInfo PrefabInfo = m_UIInfo[_ClassName];
+            PrefabInfo PrefabInfo = m_PrefabInfo[_ClassName];
             string PrefabName = PrefabInfo.m_PrefabName;
             string Path = PrefabInfo.m_Path;
-            GameObject Prefab = ABManager.LoadAssetFromAB_GameObject(Path, PrefabName);
-            System.Type ClassType = System.Type.GetType("HotFix_Project." + _ClassName);
-            BaseUIMgr ClassObj = Activator.CreateInstance(ClassType) as BaseUIMgr;
-            if (ClassObj == null)
+            GameObject Prefab = ABManager.LoadAssetFromAB(Path, PrefabName)as GameObject;
+            BaseUIMgr TempClass = CreateClass(_ClassName);
+            TempClass.SetGameObj(Prefab , _Parent);
+            return TempClass;
+        }
+
+
+        public void NewPrefabAsync(string _ClassName, Transform _Parent,System.Action<BaseUIMgr> _FinishCallback, System.Action<float> _UpdateCallBack = null)
+        {
+            PrefabInfo PrefabInfo = m_PrefabInfo[_ClassName];
+            string PrefabName = PrefabInfo.m_PrefabName;
+            string Path = PrefabInfo.m_Path;
+            ABManager.LoadAssetFromABAsync(Path, PrefabName, (LoadTarget) => 
             {
-                Debug.LogError(PrefabName + "这个预制体对应的类名无法生成，类名====" + _ClassName);
-                return null;
+                BaseUIMgr TempClass = CreateClass(_ClassName);
+                TempClass.SetGameObj(LoadTarget as GameObject, _Parent);
+                _FinishCallback(TempClass);
+
+            }, _UpdateCallBack);
+        }
+
+        public void ChangeScene(Action _ChangeFinish , string _RootUIClassName , string _3dUIClassName = "")
+        {
+            DeleteAllRootUI();
+            DeleteAllRoot3D();
+            DeleteAllWindow();
+            ILRunTimeStart.GetInstance().DoCoroutine(ExcutiveChageScene(_ChangeFinish, _RootUIClassName, _3dUIClassName));
+        }
+
+        IEnumerator ExcutiveChageScene(Action _ChangeFinish, string _RootUIClassName, string _3dUIClassName = "")
+        {
+            bool RootUILoaded = false;
+            bool UI3DLoaded = false;
+            NewPrefabAsync(_RootUIClassName, m_RootUIObj.transform, (RootScript) =>
+            {
+                RootUILoaded = true;
+            });
+
+            if (_3dUIClassName != "")
+            {
+                NewPrefabAsync(_3dUIClassName, m_Root3DObj.transform, (Script3D) =>
+                {
+                    UI3DLoaded = true;
+                });
             }
             else
             {
-                ClassObj.SetGameObj(Prefab, _Parent);
-                return ClassObj;
+                UI3DLoaded = true;
+            }
+
+            while (RootUILoaded == false || UI3DLoaded == false)
+            {
+                yield return null;
+            }
+
+            if(_ChangeFinish != null)
+            {
+                _ChangeFinish();
             }
         }
 
-        public BaseUIMgr ShowRootUI(string _ClassName, bool _Show)
+        public BaseUIMgr ShowUI(string _ClassName, bool _Show , UIType _Type)
         {
-            if(m_RootUI.ContainsKey(_ClassName))
+            Transform TempParent = null;
+            Dictionary<string, BaseUIMgr> TempDic = null;
+            switch (_Type)
             {
-                BaseUIMgr CurrentScripts = m_RootUI[_ClassName];
+                case UIType.RootUI:
+                    {
+                        TempParent = m_RootUIObj.transform;
+                        TempDic = m_RootUI;
+                    }
+                    break;
+                case UIType.UI3D:
+                    {
+                        TempParent = m_Root3DObj.transform;
+                        TempDic = m_Root3D;
+                    }
+                    break;
+                case UIType.WindowUI:
+                    {
+                        TempParent = m_WindowUIObj.transform;
+                        TempDic = m_WindowUI;
+                    }
+                    break;
+            }
+
+            if (TempDic.ContainsKey(_ClassName))
+            {
+                BaseUIMgr CurrentScripts = TempDic[_ClassName];
                 CurrentScripts.Show(_Show);
                 return CurrentScripts;
             }
             else
             {
-                BaseUIMgr TempScripts = NewPrefab(_ClassName, m_RootUIObj.transform);
-                m_RootUI.Add(_ClassName , TempScripts);
+                BaseUIMgr TempScripts = NewPrefab(_ClassName, TempParent);
+                TempDic.Add(_ClassName, TempScripts);
                 TempScripts.Show(_Show);
                 return TempScripts;
             }
         }
 
-        public BaseUIMgr ShowWindowUI(string _ClassName, bool _Show )
+        public void ShowLoadingUI(bool _Show)
         {
-            if(m_WindowUI.ContainsKey(_ClassName))
-            {
-                BaseUIMgr CurrentScripts = m_WindowUI[_ClassName];
-                CurrentScripts.Show(_Show);
-                return CurrentScripts;
-            }
-            else
-            {
-                BaseUIMgr TempScripts = NewPrefab(_ClassName, m_WindowUIObj.transform);
-                m_WindowUI.Add(_ClassName , TempScripts);
-                TempScripts.Show(_Show);
-                return TempScripts;
-            }
-        }
-
-        public void DeletePreviousRootUI(bool HideOnly = false)
-        {
-            if(HideOnly == false)
-            {
-                while (m_RootUI.Count > 1)
-                {
-                    string Key = m_RootUI.ElementAt(0).Key;
-                    BaseUIMgr Value = m_RootUI.ElementAt(0).Value;
-                    Value.Delete();
-                    m_RootUI[Key] = null;
-                    m_RootUI.Remove(Key);
-                }
-            }
-            else
-            {
-                for(int i = 0; i < m_RootUI.Count - 1; i++)
-                {
-                    m_RootUI.ElementAt(i).Value.Show(false);
-                }
-            }
-        }
-
-        public void DeleteAllRootUI()
-        {
-            while (m_RootUI.Count > 0)
-            {
-                string Key = m_RootUI.ElementAt(0).Key;
-                BaseUIMgr Value = m_RootUI.ElementAt(0).Value;
-                Value.Delete();
-                m_RootUI[Key] = null;
-                m_RootUI.Remove(Key);
-            }
-        }
-
-        public void DeleteAllWindow(bool HideOnly = false)
-        {
-            if (HideOnly == false)
-            {
-                while (m_WindowUI.Count > 0)
-                {
-                    string Key = m_WindowUI.ElementAt(0).Key;
-                    BaseUIMgr Value = m_WindowUI.ElementAt(0).Value;
-                    Value.Delete();
-                    m_WindowUI[Key] = null;
-                    m_WindowUI.Remove(Key);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < m_WindowUI.Count; i++)
-                {
-                    m_WindowUI.ElementAt(i).Value.Show(false);
-                }
-            }
+            m_LoadingObj.SetActive(_Show);
         }
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -142,11 +152,15 @@ namespace HotFix_Project
         GameObject m_RootUIObj = null;
         //次级UI的根节点
         GameObject m_WindowUIObj = null;
+        //3D场景的根节点
+        GameObject m_Root3DObj = null;
+        //Loading读取界面，用于遮挡画面，等待场景读取完毕
+        GameObject m_LoadingObj = null;
 
         //存放所有UI代码的list。 
-        Dictionary<string , BaseUIMgr> m_WindowUI;
-        Dictionary<string , BaseUIMgr> m_RootUI;
-
+        private Dictionary<string , BaseUIMgr> m_WindowUI;
+        private Dictionary<string , BaseUIMgr> m_RootUI;
+        private Dictionary<string, BaseUIMgr> m_Root3D;
 
         struct PrefabInfo
         {
@@ -159,7 +173,7 @@ namespace HotFix_Project
             public string m_Path;
         }
         //第一个参数是对应UI的脚本名称，第二个参数是控制这个prefab的名字和这个prefab的路径
-        Dictionary<string, PrefabInfo> m_UIInfo; //用于主UI
+        private Dictionary<string, PrefabInfo> m_PrefabInfo; 
 
 
         private UIMgr()
@@ -173,17 +187,76 @@ namespace HotFix_Project
             m_CanvasObj = GameObject.Find("Canvas");
             m_RootUIObj = m_CanvasObj.transform.Find("RootUI").gameObject;
             m_WindowUIObj = m_CanvasObj.transform.Find("WindowUI").gameObject;
+            m_LoadingObj = m_CanvasObj.transform.Find("Loading").gameObject;
+            m_Root3DObj = GameObject.Find("3DRoot");
+        }
+
+        private void DeleteAllRootUI()
+        {
+            while (m_RootUI.Count > 0)
+            {
+                string Key = m_RootUI.ElementAt(0).Key;
+                BaseUIMgr Value = m_RootUI.ElementAt(0).Value;
+                Value.Delete();
+                m_RootUI[Key] = null;
+                m_RootUI.Remove(Key);
+            }
+            m_RootUI.Clear();
+        }
+
+        private void DeleteAllRoot3D()
+        {
+            while (m_Root3D.Count > 0)
+            {
+                string Key = m_Root3D.ElementAt(0).Key;
+                BaseUIMgr Value = m_Root3D.ElementAt(0).Value;
+                Value.Delete();
+                m_Root3D[Key] = null;
+                m_Root3D.Remove(Key);
+            }
+            m_Root3D.Clear();
+        }
+
+        private void DeleteAllWindow(bool HideOnly = false)
+        {
+            while (m_WindowUI.Count > 0)
+            {
+                string Key = m_WindowUI.ElementAt(0).Key;
+                BaseUIMgr Value = m_WindowUI.ElementAt(0).Value;
+                Value.Delete();
+                m_WindowUI[Key] = null;
+                m_WindowUI.Remove(Key);
+            }
+            m_WindowUI.Clear();
+        }
+
+        BaseUIMgr CreateClass(string _ClassName)
+        {
+            System.Type ClassType = System.Type.GetType("HotFix_Project." + _ClassName);
+            BaseUIMgr ClassObj = Activator.CreateInstance(ClassType) as BaseUIMgr;
+            if (ClassObj == null)
+            {
+                Debug.LogError("这个类无法生成，类名====" + _ClassName);
+                return null;
+            }
+            else
+            {
+                return ClassObj;
+            }
         }
 
         private void InitList()
         {
             m_WindowUI = new Dictionary<string, BaseUIMgr>();
             m_RootUI = new Dictionary<string, BaseUIMgr>();
-            m_UIInfo = new Dictionary<string, PrefabInfo>();
-            m_UIInfo.Add("LoginMgr", new PrefabInfo("LoginUI", "src/login/ui"));
-            m_UIInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login/ui"));
-            m_UIInfo.Add("LoadingMgr", new PrefabInfo("LoadingUI", "src/Loading"));
-            m_UIInfo.Add("LoginList", new PrefabInfo("LoginList", "src/login/ui"));
+            m_Root3D = new Dictionary<string, BaseUIMgr>();
+            m_PrefabInfo = new Dictionary<string, PrefabInfo>();
+            m_PrefabInfo.Add("LoginMgr", new PrefabInfo("LoginUI", "src/login/ui"));
+            m_PrefabInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login/ui"));
+            m_PrefabInfo.Add("LoadingMgr", new PrefabInfo("LoadingUI", "src/Loading"));
+            m_PrefabInfo.Add("LoginList", new PrefabInfo("LoginList", "src/login/ui"));
+            m_PrefabInfo.Add("MainLandCtr", new PrefabInfo("MainLand", "src/mainScene/3D"));
+            
         }
 
     }

@@ -33,16 +33,21 @@ namespace HotFix_Project
                 Debug.LogWarning("这个子prefab已经添加过了！！请别重复添加===" + _ClassName);
                 return null;
             }
-            BaseUIMgr TempScripts = UIMgr.Instance.NewPrefab(_ClassName, m_GameObj.transform);
+            BaseUIMgr TempScripts = NewPrefab(_ClassName, m_GameObj.transform);
             TempScripts.Show(_ShowOrHide);
             m_SubUIScripts.Add(_ClassName , TempScripts);
             return TempScripts;
         }
 
-        public BaseUIMgr NewSubPrefab(string _ClassName)
+        public BaseUIMgr NewPrefab(string _ClassName , Transform _Parent = null)
         {
-            BaseUIMgr TempScripts = UIMgr.Instance.NewPrefab(_ClassName,null);
+            BaseUIMgr TempScripts = UIMgr.Instance.NewPrefab(_ClassName, _Parent);
             return TempScripts;
+        }
+
+        public void NewPrefabAsync(string _ClassName ,Transform _Parent , System.Action<BaseUIMgr> _FinishCallback, System.Action<float> _UpdateCallBack = null)
+        {
+            UIMgr.Instance.NewPrefabAsync(_ClassName, _Parent, _FinishCallback , _UpdateCallBack);
         }
 
         public virtual void Delete()

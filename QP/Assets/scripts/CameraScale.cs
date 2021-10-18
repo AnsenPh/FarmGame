@@ -86,7 +86,6 @@ public class CameraScale : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 lastSingleTouchPosition = Input.mousePosition;
-                Debug.Log("GetMouseButtonDown:" + lastSingleTouchPosition);
             }
             if (Input.GetMouseButton(0))
             {
@@ -143,7 +142,6 @@ public class CameraScale : MonoBehaviour
 
         //把摄像机的位置控制在范围内
         m_CameraOffset = new Vector3(Mathf.Clamp(m_CameraOffset.x, xMin, xMax), m_CameraOffset.y, Mathf.Clamp(m_CameraOffset.z, zMin, zMax));
-        //Debug.Log(lastTouchPostion + "|" + currentTouchPosition + "|" + v);
         lastSingleTouchPosition = scenePos;
     }
 

@@ -41,7 +41,7 @@ namespace HotFix_Project
 
         void InitWindowBG(Transform _Parent)
         {
-            GameObject Prefab = ABManager.LoadAssetFromAB_GameObject("src/common/window", "WindowBG");
+            GameObject Prefab = ABManager.LoadAssetFromAB("src/common/window", "WindowBG") as GameObject;
             m_WindowRootObj = GameObject.Instantiate(Prefab);
             m_WindowRootObj.transform.SetParent(_Parent);
             m_WindowRootObj.transform.localPosition = Prefab.transform.position;
