@@ -365,6 +365,8 @@
     <Compile Include="scripts\Loading\LoadingDataNotify.cs" />
     <Compile Include="scripts\Loading\LoadingConst.cs" />
     <Compile Include="scripts\Loading\LoadingNetWork.cs" />
+    <Compile Include="scripts\RoomScene\3D\RoomHallMgr.cs" />
+    <Compile Include="scripts\RoomScene\UI\RoomUIMgr.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\Loading\content\" />

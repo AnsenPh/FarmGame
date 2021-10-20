@@ -8,7 +8,8 @@ namespace HotFix_Project
     public abstract class BaseUIMgr
     {
         public GameObject m_GameObj;
-        Dictionary<string, BaseUIMgr> m_SubUIScripts = new Dictionary<string, BaseUIMgr>();
+        List<BaseUIMgr> m_AddtionalScripts = new List<BaseUIMgr>();
+        List<GameObject> m_AddtionalObj = new List<GameObject>();
         public virtual void SetGameObj(GameObject _Prefab , Transform _Parent)
         {
             m_GameObj = GameObject.Instantiate(_Prefab);
@@ -28,39 +29,47 @@ namespace HotFix_Project
         //向当前节点添加子节点UI
         public BaseUIMgr AddSubUI(string _ClassName , bool _ShowOrHide)
         {
-            if(m_SubUIScripts.ContainsKey(_ClassName))
-            {
-                Debug.LogWarning("这个子prefab已经添加过了！！请别重复添加===" + _ClassName);
-                return null;
-            }
             BaseUIMgr TempScripts = NewPrefab(_ClassName, m_GameObj.transform);
             TempScripts.Show(_ShowOrHide);
-            m_SubUIScripts.Add(_ClassName , TempScripts);
             return TempScripts;
         }
 
         public BaseUIMgr NewPrefab(string _ClassName , Transform _Parent = null)
         {
             BaseUIMgr TempScripts = UIMgr.Instance.NewPrefab(_ClassName, _Parent);
+            m_AddtionalScripts.Add(TempScripts);
             return TempScripts;
         }
 
         public void NewPrefabAsync(string _ClassName ,Transform _Parent , System.Action<BaseUIMgr> _FinishCallback, System.Action<float> _UpdateCallBack = null)
         {
-            UIMgr.Instance.NewPrefabAsync(_ClassName, _Parent, _FinishCallback , _UpdateCallBack);
+            UIMgr.Instance.NewPrefabAsync(_ClassName, _Parent, (Script) =>
+            {
+                m_AddtionalScripts.Add(Script);
+                if(_FinishCallback != null)
+                {
+                    _FinishCallback(Script);
+                }
+            } , _UpdateCallBack);
+        }
+
+        public GameObject NewPrefabWithoutCode(string _Path , string _FileName)
+        {
+            GameObject TempObj = ABManager.LoadAssetFromAB(_Path , _FileName) as GameObject;
+            m_AddtionalObj.Add(TempObj);
+            return TempObj;
         }
 
         public virtual void Delete()
         {
             RemoveDataListener();
-            for (int i = 0; i < m_SubUIScripts.Count; i++)
+            while(m_AddtionalScripts.Count>0)
             {
-                string Key = m_SubUIScripts.ElementAt(i).Key;
-                BaseUIMgr Value = m_SubUIScripts.ElementAt(i).Value;
-                Value.Delete();
-                m_SubUIScripts[Key] = null;
+                m_AddtionalScripts[0].Delete();
+                m_AddtionalScripts[0] = null;
+                m_AddtionalScripts.RemoveAt(0);
             }
-            m_SubUIScripts.Clear();
+            m_AddtionalScripts.Clear();
             GameObject.Destroy(m_GameObj);
             m_GameObj = null;
         }

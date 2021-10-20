@@ -225,6 +225,8 @@ namespace HotFix_Project
             m_PrefabInfo.Add("LoginList", new PrefabInfo("LoginList", "src/login/ui"));
             m_PrefabInfo.Add("MainLand3DMgr", new PrefabInfo("MainLand", "src/mainLand/3D"));
             m_PrefabInfo.Add("MainLandUIMgr", new PrefabInfo("MainLandUI", "src/mainLand/UI"));
+            m_PrefabInfo.Add("RoomUIMgr", new PrefabInfo("RoomUI", "src/roomScene/UI"));
+            m_PrefabInfo.Add("RoomHallMgr", new PrefabInfo("RoomHall", "src/roomScene/prefab"));
         }
 
     }

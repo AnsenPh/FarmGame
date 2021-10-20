@@ -55,7 +55,7 @@ namespace HotFix_Project
             Seq.Append(_FunctionObj.transform.DOScale(CurrentScale, 0.1f));
             if (_FunctionObj.name == "Home")
             {
-                
+                UIMgr.Instance.ChangeScene(null, "RoomUIMgr" , "RoomHallMgr");
             }
         }
 
