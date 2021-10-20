@@ -10,7 +10,8 @@ namespace HotFix_Project
     public class UIMgr
     {
         static UIMgr instance;
-
+        public BaseUIMgr m_CurrentUI;
+        public BaseUIMgr m_Current3D;
         public static UIMgr Instance
         {
             get
@@ -26,13 +27,6 @@ namespace HotFix_Project
         public Camera GetMainCamera()
         {
             return m_MainCamera;
-        }
-
-        public enum UIType
-        {
-            RootUI,
-            WindowUI,
-            UI3D,
         }
 
         public BaseUIMgr NewPrefab(string _ClassName , Transform _Parent)
@@ -63,19 +57,19 @@ namespace HotFix_Project
 
         public void ChangeScene(Action _ChangeFinish , string _RootUIClassName , string _3dUIClassName = "")
         {
-            DeleteAllRootUI();
-            DeleteAllRoot3D();
-            DeleteAllWindow();
             ILRunTimeStart.GetInstance().DoCoroutine(ExcutiveChageScene(_ChangeFinish, _RootUIClassName, _3dUIClassName));
         }
 
         IEnumerator ExcutiveChageScene(Action _ChangeFinish, string _RootUIClassName, string _3dUIClassName = "")
         {
+            DeleteCurrentScene();
+            yield return new WaitForEndOfFrame();
             bool RootUILoaded = false;
             bool UI3DLoaded = false;
             NewPrefabAsync(_RootUIClassName, m_RootUIObj.transform, (RootScript) =>
             {
                 RootUILoaded = true;
+                m_CurrentUI = RootScript;
             });
 
             if (_3dUIClassName != "")
@@ -83,6 +77,7 @@ namespace HotFix_Project
                 NewPrefabAsync(_3dUIClassName, m_Root3DObj.transform, (Script3D) =>
                 {
                     UI3DLoaded = true;
+                    m_Current3D = Script3D;
                 });
             }
             else
@@ -101,42 +96,18 @@ namespace HotFix_Project
             }
         }
 
-        public BaseUIMgr ShowUI(string _ClassName, bool _Show , UIType _Type)
+        public BaseUIMgr ShowWindow(string _ClassName, bool _Show)
         {
-            Transform TempParent = null;
-            Dictionary<string, BaseUIMgr> TempDic = null;
-            switch (_Type)
+            if (m_WindowUI.ContainsKey(_ClassName))
             {
-                case UIType.RootUI:
-                    {
-                        TempParent = m_RootUIObj.transform;
-                        TempDic = m_RootUI;
-                    }
-                    break;
-                case UIType.UI3D:
-                    {
-                        TempParent = m_Root3DObj.transform;
-                        TempDic = m_Root3D;
-                    }
-                    break;
-                case UIType.WindowUI:
-                    {
-                        TempParent = m_WindowUIObj.transform;
-                        TempDic = m_WindowUI;
-                    }
-                    break;
-            }
-
-            if (TempDic.ContainsKey(_ClassName))
-            {
-                BaseUIMgr CurrentScripts = TempDic[_ClassName];
+                BaseUIMgr CurrentScripts = m_WindowUI[_ClassName];
                 CurrentScripts.Show(_Show);
                 return CurrentScripts;
             }
             else
             {
-                BaseUIMgr TempScripts = NewPrefab(_ClassName, TempParent);
-                TempDic.Add(_ClassName, TempScripts);
+                BaseUIMgr TempScripts = NewPrefab(_ClassName, m_WindowUIObj.transform);
+                m_WindowUI.Add(_ClassName, TempScripts);
                 TempScripts.Show(_Show);
                 return TempScripts;
             }
@@ -166,8 +137,6 @@ namespace HotFix_Project
 
         //存放所有UI代码的list。 
         private Dictionary<string , BaseUIMgr> m_WindowUI;
-        private Dictionary<string , BaseUIMgr> m_RootUI;
-        private Dictionary<string, BaseUIMgr> m_Root3D;
 
         struct PrefabInfo
         {
@@ -185,6 +154,8 @@ namespace HotFix_Project
 
         private UIMgr()
         {
+            m_Current3D = null;
+            m_CurrentUI = null;
             InitRootObj();
             InitList();
         }
@@ -199,32 +170,6 @@ namespace HotFix_Project
             m_MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         }
 
-        private void DeleteAllRootUI()
-        {
-            while (m_RootUI.Count > 0)
-            {
-                string Key = m_RootUI.ElementAt(0).Key;
-                BaseUIMgr Value = m_RootUI.ElementAt(0).Value;
-                Value.Delete();
-                m_RootUI[Key] = null;
-                m_RootUI.Remove(Key);
-            }
-            m_RootUI.Clear();
-        }
-
-        private void DeleteAllRoot3D()
-        {
-            while (m_Root3D.Count > 0)
-            {
-                string Key = m_Root3D.ElementAt(0).Key;
-                BaseUIMgr Value = m_Root3D.ElementAt(0).Value;
-                Value.Delete();
-                m_Root3D[Key] = null;
-                m_Root3D.Remove(Key);
-            }
-            m_Root3D.Clear();
-        }
-
         private void DeleteAllWindow(bool HideOnly = false)
         {
             while (m_WindowUI.Count > 0)
@@ -236,6 +181,23 @@ namespace HotFix_Project
                 m_WindowUI.Remove(Key);
             }
             m_WindowUI.Clear();
+        }
+
+        private void DeleteCurrentScene()
+        {
+            if(m_CurrentUI !=null)
+            {
+                m_CurrentUI.Delete();
+                m_CurrentUI = null;
+            }
+
+            if (m_Current3D != null)
+            {
+                m_Current3D.Delete();
+                m_Current3D = null;
+            }
+
+            DeleteAllWindow();
         }
 
         BaseUIMgr CreateClass(string _ClassName)
@@ -256,15 +218,13 @@ namespace HotFix_Project
         private void InitList()
         {
             m_WindowUI = new Dictionary<string, BaseUIMgr>();
-            m_RootUI = new Dictionary<string, BaseUIMgr>();
-            m_Root3D = new Dictionary<string, BaseUIMgr>();
             m_PrefabInfo = new Dictionary<string, PrefabInfo>();
             m_PrefabInfo.Add("LoginMgr", new PrefabInfo("LoginUI", "src/login/ui"));
             m_PrefabInfo.Add("TestWindow", new PrefabInfo("TestWindow", "src/login/ui"));
             m_PrefabInfo.Add("LoadingMgr", new PrefabInfo("LoadingUI", "src/Loading"));
             m_PrefabInfo.Add("LoginList", new PrefabInfo("LoginList", "src/login/ui"));
-            m_PrefabInfo.Add("MainLandCtr", new PrefabInfo("MainLand", "src/mainScene/3D"));
-            
+            m_PrefabInfo.Add("MainLand3DMgr", new PrefabInfo("MainLand", "src/mainLand/3D"));
+            m_PrefabInfo.Add("MainLandUIMgr", new PrefabInfo("MainLandUI", "src/mainLand/UI"));
         }
 
     }

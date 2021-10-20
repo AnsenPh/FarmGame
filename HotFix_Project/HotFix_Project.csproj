@@ -347,13 +347,14 @@
     <Compile Include="scripts\Common\UIMgr.cs" />
     <Compile Include="scripts\Common\DataNotify\BaseData.cs" />
     <Compile Include="scripts\Common\DataNotify\BaseDataNotify.cs" />
-    <Compile Include="scripts\MainLand\3D\MainLandCtr.cs" />
+    <Compile Include="scripts\MainLand\3D\MainLand3DMgr.cs" />
     <Compile Include="scripts\login\UI\content\LoginList.cs" />
     <Compile Include="scripts\login\UI\LoginConst.cs" />
     <Compile Include="scripts\login\UI\content\TestWindow.cs" />
     <Compile Include="scripts\login\UI\LoginDataNotify.cs" />
     <Compile Include="scripts\login\UI\LoginMgr.cs" />
     <Compile Include="scripts\login\UI\LoginNetwork.cs" />
+    <Compile Include="scripts\MainLand\UI\MainLandUIMgr.cs" />
     <Compile Include="scripts\MainStart.cs" />
     <Compile Include="scripts\Common\MonoEvent\ILMonoBehaviour.cs" />
     <Compile Include="scripts\Common\BaseNetwork.cs" />

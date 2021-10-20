@@ -54,7 +54,7 @@ namespace HotFix_Project
 
         void TestWindowShow_CB(bool _Result)
         {
-            UIMgr.Instance.ShowUI("TestWindow", _Result , UIMgr.UIType.WindowUI);
+            UIMgr.Instance.ShowWindow("TestWindow", _Result );
         }
 
         public override void RemoveDataListener()
@@ -65,6 +65,8 @@ namespace HotFix_Project
         void OnLoginInBtn(int _Data)
         {
             //LoginDataNotify.Instance.Data_TestWindowShow.Data = true;
+            UIMgr.Instance.ChangeScene(null, "MainLandUIMgr" , "MainLand3DMgr");
+            
         }
     }
 }

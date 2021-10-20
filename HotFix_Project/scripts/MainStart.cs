@@ -13,7 +13,7 @@ namespace HotFix_Project
             try
             {
                 Debug.Log("Dll的代码开始执行");
-                UIMgr.Instance.ChangeScene( null, "LoginMgr", "MainLandCtr");
+                UIMgr.Instance.ChangeScene( null, "LoginMgr");
        
             }
             catch (Exception e)
