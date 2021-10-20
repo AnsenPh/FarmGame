@@ -29,8 +29,7 @@ namespace HotFix_Project
         {
             m_Floor = m_GameObj.transform.Find("Floor").gameObject;
             m_FloorCell = new List<GameObject>();
-            int MaxCol = 14;
-            int MaxRow = 10;
+
             float CellLength = 0.2f;
 
     
@@ -39,9 +38,9 @@ namespace HotFix_Project
             float StartX = FirstCell.transform.localPosition.x;
             float StartY = FirstCell.transform.localPosition.y;
             float StartZ = FirstCell.transform.localPosition.z;
-            for (int row = 0; row < MaxRow; row++) 
+            for (int row = 0; row < RoomSceneConst.HallMaxRow; row++) 
             {
-                for (int col = 0; col < MaxCol; col++)
+                for (int col = 0; col < RoomSceneConst.HallMaxCol; col++)
                 {
                     if (col == 0 && row == 0)
                     {

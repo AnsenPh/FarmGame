@@ -7,22 +7,12 @@ using Object = UnityEngine.Object;
 
 namespace HotFix_Project
 {
-    public class UIMgr
+    public class UIMgr:Singleton<UIMgr>
     {
-        static UIMgr instance;
+
         public BaseUIMgr m_CurrentUI;
         public BaseUIMgr m_Current3D;
-        public static UIMgr Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new UIMgr();
-                }
-                return instance;
-            }
-        }
+
 
         public Camera GetMainCamera()
         {
