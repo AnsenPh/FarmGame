@@ -64,7 +64,7 @@ namespace HotFix_Project
             }
             else
             {
-                AssetBundle TempAB = TryToLoad(_Path );
+                AssetBundle TempAB = TryToLoadAB(_Path );
                 Object Src = TempAB.LoadAsset<Object>(_FileName.ToLower());
                 return Src;
             }
@@ -168,7 +168,7 @@ namespace HotFix_Project
             }
         }
 
-        private static AssetBundle TryToLoad(string _Path)
+        private static AssetBundle TryToLoadAB(string _Path)
         {
             string ABName = ConvertToABName(_Path);
             if (m_AssetsBundleCache.ContainsKey(ABName))

@@ -13,6 +13,7 @@ namespace HotFix_Project
             try
             {
                 Debug.Log("Dll的代码开始执行");
+                CSVReader.Instance.LoadItemData();
                 UIMgr.Instance.ChangeScene( null, "LoginMgr");
        
             }

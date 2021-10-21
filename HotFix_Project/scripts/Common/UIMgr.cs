@@ -142,7 +142,7 @@ namespace HotFix_Project
         private Dictionary<string, PrefabInfo> m_PrefabInfo; 
 
 
-        private UIMgr()
+        public UIMgr()
         {
             m_Current3D = null;
             m_CurrentUI = null;

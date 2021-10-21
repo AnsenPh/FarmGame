@@ -30,9 +30,6 @@ namespace HotFix_Project
             m_Floor = m_GameObj.transform.Find("Floor").gameObject;
             m_FloorCell = new List<GameObject>();
 
-            float CellLength = 0.2f;
-
-    
             GameObject FirstCell = m_Floor.transform.Find("Cell").gameObject;
             m_FloorCell.Add(FirstCell);
             float StartX = FirstCell.transform.localPosition.x;
@@ -47,13 +44,12 @@ namespace HotFix_Project
                         continue;
                     }
 
-                    float CurrentX = StartX - CellLength * col;
-                    float CurrentZ = StartZ - CellLength * row;
+                    float CurrentX = StartX - RoomSceneConst.CellLength * col;
+                    float CurrentZ = StartZ - RoomSceneConst.CellLength * row;
                     GameObject TempCell = GameObject.Instantiate(FirstCell, m_Floor.transform);
                     TempCell.transform.localPosition = new Vector3(CurrentX, StartY, CurrentZ);
                     m_FloorCell.Add(TempCell);
                 }
-
             }
         }
     }

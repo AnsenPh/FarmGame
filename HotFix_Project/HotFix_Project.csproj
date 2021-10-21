@@ -342,6 +342,8 @@
     <Compile Include="scripts\Common\ABManager.cs" />
     <Compile Include="scripts\Common\BaseUIMgr.cs" />
     <Compile Include="scripts\Common\BaseWindow.cs" />
+    <Compile Include="scripts\Common\CommonConst.cs" />
+    <Compile Include="scripts\Common\CSVReader.cs" />
     <Compile Include="scripts\Common\LocalPlayerData.cs" />
     <Compile Include="scripts\Common\Singleton.cs" />
     <Compile Include="scripts\Common\UIMgr.cs" />
@@ -354,6 +356,8 @@
     <Compile Include="scripts\login\UI\LoginDataNotify.cs" />
     <Compile Include="scripts\login\UI\LoginMgr.cs" />
     <Compile Include="scripts\login\UI\LoginNetwork.cs" />
+    <Compile Include="scripts\MainLand\MainLandConst.cs" />
+    <Compile Include="scripts\MainLand\MainLandDataNotify.cs" />
     <Compile Include="scripts\MainLand\UI\MainLandUIMgr.cs" />
     <Compile Include="scripts\MainStart.cs" />
     <Compile Include="scripts\Common\MonoEvent\ILMonoBehaviour.cs" />
@@ -366,6 +370,8 @@
     <Compile Include="scripts\Loading\LoadingConst.cs" />
     <Compile Include="scripts\Loading\LoadingNetWork.cs" />
     <Compile Include="scripts\RoomScene\3D\RoomHallMgr.cs" />
+    <Compile Include="scripts\RoomScene\RoomSceneConst.cs" />
+    <Compile Include="scripts\RoomScene\RoomSceneDataNotify.cs" />
     <Compile Include="scripts\RoomScene\UI\RoomUIMgr.cs" />
   </ItemGroup>
   <ItemGroup>

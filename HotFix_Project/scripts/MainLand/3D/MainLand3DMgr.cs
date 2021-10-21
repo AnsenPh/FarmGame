@@ -12,6 +12,8 @@ namespace HotFix_Project
         List<GameObject> m_Btns;
         GameObject m_FunctionObj;
         Camera m_Camera;
+
+        string m_ClickDownObjName = "";
         public override void InitGameObjParam()
         {
             m_FunctionObj = m_GameObj.transform.Find("Function").gameObject;
@@ -34,18 +36,43 @@ namespace HotFix_Project
 
         void Update()
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit Hit;
+                if (Physics.Raycast(ray, out Hit, float.MaxValue, LayerMask.GetMask(CommonConst.CameraTouchLayer)))
+                {
+                    m_ClickDownObjName = Hit.collider.gameObject.name;
+                    PlayScaleAnm(Hit.collider.gameObject);
+                }
+            }
+
+
             if (Input.GetMouseButtonUp(0))
             {
                 Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit Hit;
-                if (Physics.Raycast(ray, out Hit, float.MaxValue, LayerMask.GetMask("Touch3D")))
+                if (Physics.Raycast(ray, out Hit, float.MaxValue, LayerMask.GetMask(CommonConst.CameraTouchLayer)))
                 {
-                    OnFunctionObjClicked(Hit.collider.gameObject);
+                    if (m_ClickDownObjName == Hit.collider.gameObject.name)
+                    {
+                        OnFunctionObjClicked(Hit.collider.gameObject);
+                    }
                 }
+
+                m_ClickDownObjName = "";
             }
         }
 
         void OnFunctionObjClicked(GameObject _FunctionObj)
+        {
+            if (_FunctionObj.name == "Home")
+            {
+                UIMgr.Instance.ChangeScene(null, "RoomUIMgr" , "RoomHallMgr");
+            }
+        }
+
+        void PlayScaleAnm(GameObject _FunctionObj)
         {
             Vector3 CurrentScale = _FunctionObj.transform.localScale;
             Vector3 ScaleTo = CurrentScale * 1.1f;
@@ -53,10 +80,6 @@ namespace HotFix_Project
             Sequence Seq = DOTween.Sequence();
             Seq.Append(_FunctionObj.transform.DOScale(ScaleTo, 0.1f));
             Seq.Append(_FunctionObj.transform.DOScale(CurrentScale, 0.1f));
-            if (_FunctionObj.name == "Home")
-            {
-                UIMgr.Instance.ChangeScene(null, "RoomUIMgr" , "RoomHallMgr");
-            }
         }
 
         void InitBtnAnm()
